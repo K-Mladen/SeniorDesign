@@ -7,10 +7,14 @@ there are no loops in the maze -- in other words, there is only one path from an
 */
 
 
-
-#include "CriticalPath.cpp"
-
-bool crPath::setNextStep(int i) { 
+class crPath {
+  public:
+	//constructors, destructors
+	crPath(){};
+	~crPath(){};
+	
+	//public functions
+	bool setNextStep(int i){ 
 	  if (path.at(path.size-1)!=int i){
 	    path.push_back(i); //next spot and previous spot do not match -- new step in path
 		return TRUE;
@@ -19,12 +23,15 @@ bool crPath::setNextStep(int i) {
 		return FALSE;
 	  }
 	}
-	
-int crPath::getNextStep(int i) {
+	int getNextStep(int i){
 	// to get the critical path here, use something like int i(0); for(i=0;i<(this).size();i++){(this).getNextstep)}
 	  return path.at(i);
 	}
-	
-int crPath::size(){
+	int size(){
 	  return path.size();
 	}
+
+	  
+  private:
+    vector<int> path;
+}
