@@ -9,6 +9,7 @@ there are no loops in the maze -- in other words, there is only one path from an
 #ifndef CRITICALPATH
 #define CRITICALPATH
 
+/*
 class crPath {
   public:
 	//constructors, destructors
@@ -23,5 +24,30 @@ class crPath {
   private:
     vector<int> path;
 }
+*/
 
+//external header file
+#define MAXPATHSIZE 50
+
+#ifndef CRITICALPATH
+#define CRITICALPATH
+
+class crPath {
+public:
+  //constructors, destructors
+  crPath();
+  ~crPath();
+  //public access functions
+  bool setNextStep(int i);
+  int getNextStep(int i);
+  int getSize();
+private:
+  int size
+  int path[MAXPATHSIZE];
+  
+  int push_back(int i);
+  int pop_back();
+}
+
+#endif
 #ENDIF
