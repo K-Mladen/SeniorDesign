@@ -6,8 +6,7 @@ the calling code has an indexed grid on the maze such that any walls are on grid
 there are no loops in the maze -- in other words, there is only one path from any point a to point b
 */
 
-#ifndef CRITICALPATH
-#define CRITICALPATH
+
 
 /*
 class crPath {
@@ -32,22 +31,21 @@ class crPath {
 #ifndef CRITICALPATH
 #define CRITICALPATH
 
-class crPath {
-public:
-  //constructors, destructors
-  crPath();
-  ~crPath();
-  //public access functions
-  bool setNextStep(int i);
-  int getNextStep(int i);
-  int getSize();
-private:
-  int size
-  int path[MAXPATHSIZE];
+	class crPath {
+	public:
+	  //constructors, destructors
+	  crPath();
+	  ~crPath();
+	  //public access functions
+	  bool setNextStep(int i);
+	  int getNextStep(int i);
+	  int getSize();
+	private:
+	  int size;
+	  int path[MAXPATHSIZE];
+	  
+	  int push_back(int i);
+	  int pop_back();
+	};
   
-  int push_back(int i);
-  int pop_back();
-}
-
 #endif
-#ENDIF

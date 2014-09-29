@@ -36,9 +36,12 @@ assumptions:
 the calling code has an indexed grid on the maze such that any walls are on grid boundaries
 there are no loops in the maze -- in other words, there is only one path from any point a to point b
 */
-#include "CriticalPath.cpp"
+
+#include "Defines.h"
+#include "CriticalPath.h"
+
 bool crPath::setNextStep(int i) {
-  if (path[(size-1)] != int i){
+  if (path[(size-1)] != i){
     push_back(i); //next spot and previous spot do not match -- new step in path
     return TRUE;
   } else {
@@ -51,7 +54,7 @@ int crPath::getNextStep(int i) {
   return path[i];
 }
 int crPath::getSize(){
-  return path.size();
+  return size;
 }
 
 int crPath::push_back(int i){
