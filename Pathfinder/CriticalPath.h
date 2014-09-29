@@ -26,23 +26,26 @@ class crPath {
 */
 
 //external header file
-#define MAXPATHSIZE 50
 
 #ifndef CRITICALPATH
 #define CRITICALPATH
 
+#include "DEFINES.H"
+
 	class crPath {
 	public:
 	  //constructors, destructors
-	  crPath();
+	  crPath(); //class should not be created without initializing
 	  ~crPath();
 	  //public access functions
 	  bool setNextStep(int i);
 	  int getNextStep(int i);
 	  int getSize();
+	  
 	private:
 	  int size;
-	  int path[MAXPATHSIZE];
+	  int cpDone;
+ 	  int path[MAXPATHSIZE];
 	  
 	  int push_back(int i);
 	  int pop_back();

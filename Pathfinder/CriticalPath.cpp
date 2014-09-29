@@ -39,14 +39,30 @@ there are no loops in the maze -- in other words, there is only one path from an
 
 #include "Defines.h"
 #include "CriticalPath.h"
+crPath::crPath() {
+  int it;
+  size = 0;
+  cpDone = 0;
+    for (it = 0; it<MAXPATHSIZE;it++) {
+    path[it] = 0; 
+  }
+}
+
+crPath::~crPath(){}
 
 bool crPath::setNextStep(int i) {
-  if (path[(size-1)] != i){
-    push_back(i); //next spot and previous spot do not match -- new step in path
-    return TRUE;
-  } else {
-    pop_back(); //next spot and previous spot are the same -- erase current spot
-    return FALSE;
+  if (!cpDone) {
+    if(size < 2) {
+	  push_back(i);
+	  return TRUE;
+	}
+    if (path[(size-2)] != i){
+      push_back(i); //next spot and previous spot do not match -- new step in path
+      return TRUE;
+    } else {
+      pop_back(); //next spot and previous spot are the same -- erase current spot
+      return FALSE;
+    }
   }
 }
 int crPath::getNextStep(int i) {
@@ -60,9 +76,10 @@ int crPath::getSize(){
 int crPath::push_back(int i){
   path[size] = i;
   size++;
+  cpDone = (i==0);
 }
 
 int crPath::pop_back(){
-  path[size] = 0;
   size--;
+  path[size] = 0;
 }

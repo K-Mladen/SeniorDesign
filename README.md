@@ -15,3 +15,7 @@ Arduino needs to be instructed on where to find these header files. To use them,
 Pathfinder will be added to the list of available libraries automatically.
 Open the main function sketch, and click on [[Sketch>>Import Library...>>Pathfinder]] near the very bottom of the list.
 This will put the relevant #includes at the top of the Arduino sketch. At this point, click verify & upload, and the code will be uploaded to the Arduino
+
+Description of Testcode Folder
+------------------------------
+This folder contains code that was used for testing the code, but is not part of the final program (though parts of it will most likely be recycled)
