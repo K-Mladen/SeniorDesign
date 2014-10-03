@@ -10,22 +10,32 @@ class RoboState {
   ~RoboState();
   
   //control
-  setMapSize(int m);
-  step(int facing);
-  FirstSquare();
+  void step();
+  void turnRight();
+  void turnLeft();
+  void turnBack();
+  
   //move(int facing, int distance);
   
   //state info
-  getMapSize();
-  getX();
-  getY();
-  getIndex();
+  int getX();
+  int getY();
+  int getIndex();
   
   private:
-    int n,entry, x,y,facing,index;
-	calX(int i);
-	calY(int i);
-	calN(int iX,int iY);
+    int n,entry //grid descriptors
+    int	x,y,facing,index; //robot state
+	
+	//update state info
+	int calX(int i);
+	int calY(int i);
+	int calIndex(int iX,int iY);
+	void facingadj();
+	
+	//init
+	void FirstSquare();
+	void setMapSize(int m);
+	
 };
 
 #endif
