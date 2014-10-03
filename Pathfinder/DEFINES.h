@@ -5,6 +5,7 @@
 #define FALSE 0
 
 #define MAXPATHSIZE 50
+#define DEFAULTMAPSIZE 5
 
 
 #endif
