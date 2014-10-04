@@ -10,7 +10,7 @@ class RoboState {
   ~RoboState();
   
   //control
-  void step();
+  int step();
   void turnRight();
   void turnLeft();
   void turnBack();
@@ -19,21 +19,25 @@ class RoboState {
   
   //state info
   int getX();
+  int getX(int i);
   int getY();
+  int getY(int i);
   int getIndex();
+  int getFacing();
+  
   
   private:
-    int n,entry //grid descriptors
+    int n,entry; //grid descriptors
     int	x,y,facing,index; //robot state
 	
 	//update state info
 	int calX(int i);
 	int calY(int i);
 	int calIndex(int iX,int iY);
-	void facingadj();
+	bool facingAdj();
 	
 	//init
-	void FirstSquare();
+	int firstSquare();
 	void setMapSize(int m);
 	
 };

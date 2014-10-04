@@ -6,8 +6,8 @@
 
 #define NORTH 0
 #define SOUTH 2
-#DEFINE WEST 1
-#DEFINE EAST 3
+#define WEST 1
+#define EAST 3
 
 #define MAXPATHSIZE 50
 #define DEFAULTMAPSIZE 5

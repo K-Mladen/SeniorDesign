@@ -9,14 +9,17 @@
 //-----------------------\\
 
 RoboState::RoboState(){
-  setMapsize(DEFAULTMAPSIZE);
+  setMapSize(DEFAULTMAPSIZE);
+  entry = DEFAULTMAPSIZE*DEFAULTMAPSIZE-DEFAULTMAPSIZE+1;
+  index = x = y = -1;
+  facing = NORTH;
 }
 
 RoboState::RoboState(int m){
-  setMapsize(m);
-  entry = m*m;
-  x = y = -1;
-  
+  setMapSize(m);
+  entry = m*m-m+1;
+  index = x = y = -1;
+  facing = NORTH;
 }
 
 RoboState::~RoboState(){}
@@ -32,41 +35,58 @@ int RoboState::step(){
     } else if (facing == SOUTH) {
       y++;
 	} else if (facing == WEST) {
-      x--;
+      x++;
 	} else if (facing == EAST) {
-	  x++;
+	  x--;
 	}
   } while(facingAdj());
-    calIndex();
+    index = calIndex(x,y);
 	return index;
 }
 
-void turnRight() {
+void RoboState::turnRight() {
   facing = facing - NORTH + EAST; //assume facing NORTH, turning right will make you face EAST -- this allows for the numbers to be changed later
-  facingadj(); //put facing within 0=<x<4
+  facingAdj(); //put facing within 0=<x<4
 }
 
-void turnLeft() {
+void RoboState::turnLeft() {
   facing = facing - NORTH + WEST; //assume facing NORTH, turning left will make you face WEST -- this allows for the numbers to be changed later
-  facingadj(); //put facing within 0=<x<4
+  facingAdj(); //put facing within 0=<x<4
 }
 
-void turnBack() {
+void RoboState::turnBack() {
   facing = facing - NORTH + SOUTH; //assume facing NORTH, turning back will make you face SOUTH -- this allows for the numbers to be changed later
-  facingadj(); //put facing within 0=<x<4
+  facingAdj(); //put facing within 0=<x<4
 }
 
 int RoboState::getX() {
   return x;
 }
 
+int RoboState::getX(int i) {
+  return calX(i);
+}
+
 int RoboState::getY() {
   return y;
+}
+
+int RoboState::getY(int i) {
+  return calY(i);
 }
 
 int RoboState::getIndex() {
   return index;
 }
+
+int RoboState::getFacing() {
+  return facing;
+}
+
+
+
+
+
 
 //------------------------\\
 //--------PRIVATE---------\\
@@ -74,15 +94,15 @@ int RoboState::getIndex() {
 
 
 
-void RoboState::calX(int i) {
+int RoboState::calX(int i) {
   return (i-1)%n;
 }
 
-void RoboState::calY(int i) {
+int RoboState::calY(int i) {
   return (int)((i-1)/n);
 }
 
-void RoboState::calIndex(int iX, int iY) {
+int RoboState::calIndex(int iX, int iY) {
   return (1 + iX + iY*n);
 }
 
@@ -98,7 +118,7 @@ bool RoboState::facingAdj() {
   }
 }
 
-int RoboState::FirstSquare() {
+int RoboState::firstSquare() {
   x = calX(entry);
   y = calY(entry);
   index = entry;
