@@ -9,11 +9,11 @@ there are no loops in the maze -- in other words, there is only one path from an
 
 
 /*
-class crPath {
+class CrPath {
   public:
 	//constructors, destructors
-	crPath(){};
-	~crPath(){};
+	CrPath(){};
+	~CrPath(){};
 	
 	//public functions
 	bool setNextStep(int i);
@@ -32,11 +32,11 @@ class crPath {
 
 #include "DEFINES.H"
 
-	class crPath {
+	class CrPath {
 	public:
 	  //constructors, destructors
-	  crPath(); //class should not be created without initializing
-	  ~crPath();
+	  CrPath(); //class should not be created without initializing
+	  ~CrPath();
 	  //public access functions
 	  bool setNextStep(int i);
 	  int getNextStep(int i);

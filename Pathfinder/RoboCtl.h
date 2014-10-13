@@ -1,6 +1,6 @@
 
 
-class RoboCtl { 
+class RoboCtl: public RoboState, public CrPath, public Driver { 
   public:
     //Constructor and destructors
 	 RoboCtl();
