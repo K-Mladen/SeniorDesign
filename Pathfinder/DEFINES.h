@@ -31,7 +31,7 @@ namespace pins {
 
   const int 
     RIGHTMOTORPWM(3),LEFTMOTORBRAKE(8),RIGHTMOTORBRAKE(9),LEFTMOTORPWM(11),RIGHTMOTORDIR(12),LEFTMOTORDIR(13),
-    FECHOPIN(22),FTRIGPIN(23),LECHOPIN(24),LTRIGPIN(25),RECHOPIN(26),RTRIGPIN(27),
+    FECHO(22),FTRIG(23),LECHO(24),LTRIG(25),RECHO(26),RTRIG(27),
     LINE0(30),LINE1(31),LINE2(32),LINE3(33),LINE4(34),LINE5(35),LINE6(36),LINE7(37);
   
 #define rightMotordir pins::RIGHTMOTORDIR //12
@@ -43,13 +43,27 @@ namespace pins {
 
 
   
-#define ftrigPin pins::FTRIGPIN
-#define fechoPin pins::FECHOPIN
-#define ltrigPin pins::LTRIGPIN
-#define lechoPin pins::LECHOPIN
-#define rtrigPin pins::RTRIGPIN
-#define rechoPin pins::RECHOPIN
+#define ftrigPin pins::FTRIG
+#define fechoPin pins::FECHO
+#define ltrigPin pins::LTRIG
+#define lechoPin pins::LECHO
+#define rtrigPin pins::RTRIG
+#define rechoPin pins::RECHO
 
+
+
+#define DEFINED_PINMODES   pinMode(pins::FTRIG, OUTPUT); \\
+  pinMode(pins::FECHO, INPUT); \\
+  pinMode(pins::LTRIG, OUTPUT); \\
+  pinMode(pins::LECHO, INPUT); \\
+  pinMode(pins::RTRIG, OUTPUT); \\
+  pinMode(pins::RECHO, INPUT); \\
+  pinMode(pins::RIGHTMOTORDIR, OUTPUT); \\
+  pinMode(pins::RIGHTMOTORBRAKE, OUTPUT); \\
+  pinMode(pins::RIGHTMOTORPWM, OUTPUT); \\
+  pinMode(pins::LEFTMOTORDIR, OUTPUT); \\
+  pinMode(pins::LEFTMOTORBRAKE, OUTPUT); \\
+  pinMode(pins::LEFTMOTORPWM, OUTPUT); \\
 }
 
 #endif
