@@ -52,7 +52,8 @@ namespace pins {
 
 
 
-#define DEFINED_PINMODES   pinMode(pins::FTRIG, OUTPUT); \\
+#define DEFINED_PINMODES \\
+  pinMode(pins::FTRIG, OUTPUT); \\
   pinMode(pins::FECHO, INPUT); \\
   pinMode(pins::LTRIG, OUTPUT); \\
   pinMode(pins::LECHO, INPUT); \\

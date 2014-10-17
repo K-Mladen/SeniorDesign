@@ -2,8 +2,10 @@
 //Josh Wears' code, rebuilt into a class
 
 #include <QTRSensors.h>
-#include "DEFINES.h"
 #include "Driver.h"
+#include "DEFINES.h"
+
+
 
 QTRSensorsRC qtrrc((unsigned char[]) {pins::LINE1, pins::LINE2, pins::LINE3, pins::LINE4, pins::LINE5, pins::LINE6},NUM_SENSORSLINE, TIMEOUT);
 QTRSensorsRC qtrrc1((unsigned char[]) {pins::LINE0, pins::LINE7}, NUM_SENSORSCELL, TIMEOUT);
@@ -18,19 +20,8 @@ int cellcenter = 0;
 
 void setup()
 {
-  pinMode(ftrigPin, OUTPUT);
-  pinMode(fechoPin, INPUT);
-  pinMode(ltrigPin, OUTPUT);
-  pinMode(lechoPin, INPUT);
-  pinMode(rtrigPin, OUTPUT);
-  pinMode(rechoPin, INPUT);
-  pinMode(rightMotordir, OUTPUT);
-  pinMode(rightMotorbrake, OUTPUT);
-  pinMode(rightMotorPWM, OUTPUT);
-  pinMode(leftMotordir, OUTPUT);
-  pinMode(leftMotorbrake, OUTPUT);
-  pinMode(leftMotorPWM, OUTPUT);
 
+DEFINED_PINMODES //Set in DEFINES.h
 
   // Sensor Calibration, Manual Calibration by moving line across sensors
   int i;
