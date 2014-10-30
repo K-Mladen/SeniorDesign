@@ -7,32 +7,19 @@
 
 
 
-QTRSensorsRC qtrrc((unsigned char[]) {pins::LINE1, pins::LINE2, pins::LINE3, pins::LINE4, pins::LINE5, pins::LINE6},NUM_SENSORSLINE, TIMEOUT);
-QTRSensorsRC qtrrc1((unsigned char[]) {pins::LINE0, pins::LINE7}, NUM_SENSORSCELL, TIMEOUT);
-unsigned int sensorValuesLine[NUM_SENSORSLINE];
-unsigned int sensorValuesCell[NUM_SENSORSCELL];
-int isleftwall = 0;
-int isrightwall = 0;
-int isfrontwall = 0;
-int cellcenter = 0;
 
+DEFINED_PINMODES //this is set up in DEFINES.h
 
-
-void setup()
-{
-
-DEFINED_PINMODES //Set in DEFINES.h
-
+Driver::Driver {
   // Sensor Calibration, Manual Calibration by moving line across sensors
   int i;
-  for (int i = 0; i < 250; i++){ // calibrate for sometime by sliding the sensors across the line, or you may use auto-calibration instead
-    qtrrc.calibrate();   
+  for (i = 0; i < 250; i++){ // calibrate for sometime by sliding the sensors across the line, or you may use auto-calibration instead
+    g::qtrrc.calibrate();   
     delay(20);
   }
   delay(2000); // wait for 2s to position the bot before entering the main loop 
-  Serial.begin(9600);
+}  
 
-}
 
 int lastError = 0;
 
@@ -40,12 +27,12 @@ void loop()
 {   
 
 
-cellcenter = readCellSensor();
-  if(cellcenter == 1)
+g::cellcenter = readCellSensor();
+  if(g::cellcenter == 1)
   {
-  isleftwall = isleftwallchk();
-  isfrontwall = isfrontwallchk();
-  isrightwall = isrightwallchk();
+  g::isleftwall = isleftwallchk();
+  g::isfrontwall = isfrontwallchk();
+  g::isrightwall = isrightwallchk();
   setCourse();
   }
 
@@ -53,19 +40,19 @@ cellcenter = readCellSensor();
 
   
   /*
-  Serial.print(cellcenter);
+  Serial.print(g::cellcenter);
   Serial.println();
-  Serial.print(isleftwall);
+  Serial.print(g::isleftwall);
   Serial.print(' '); 
-  Serial.print(isrightwall);
+  Serial.print(g::isrightwall);
   Serial.print(' '); 
-  Serial.print(isfrontwall);
+  Serial.print(g::isfrontwall);
   Serial.print(' '); 
   Serial.println();
 */
   
   unsigned int linesensors[5];
-  int position = qtrrc.readLine(linesensors); // get calibrated readings along with the line position
+  int position = g::qtrrc.readLine(linesensors); // get calibrated readings along with the line position
   int error = position - 2500;
 
 
@@ -97,7 +84,7 @@ cellcenter = readCellSensor();
 
 int readCellSensor()
 {
-  qtrrc1.read(sensorValuesCell);
+  g::qtrrc1.read(sensorValuesCell);
   int cellposition = 0;
   
   for (unsigned char i = 0; i < NUM_SENSORSCELL; i++)
@@ -287,15 +274,15 @@ void turnleft()
 
 void setCourse()
 {
-    if(isleftwall == 0)
+    if(g::isleftwall == 0)
    {
    turnleft();
    }
-   else if(isfrontwall == 0)
+   else if(g::isfrontwall == 0)
    {
    gostraight();
    }
-   else if(isrightwall == 0)
+   else if(g::isrightwall == 0)
    {
    turnright();
    }

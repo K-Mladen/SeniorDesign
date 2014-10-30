@@ -33,7 +33,9 @@ namespace pins {
     RIGHTMOTORPWM(3),LEFTMOTORBRAKE(8),RIGHTMOTORBRAKE(9),LEFTMOTORPWM(11),RIGHTMOTORDIR(12),LEFTMOTORDIR(13),
     FECHO(22),FTRIG(23),LECHO(24),LTRIG(25),RECHO(26),RTRIG(27),
     LINE0(30),LINE1(31),LINE2(32),LINE3(33),LINE4(34),LINE5(35),LINE6(36),LINE7(37);
-  
+}
+
+	
 #define rightMotordir pins::RIGHTMOTORDIR //12
 #define rightMotorbrake pins::RIGHTMOTORBRAKE //9
 #define rightMotorPWM pins::RIGHTMOTORPWM //3
@@ -65,6 +67,16 @@ namespace pins {
   pinMode(pins::LEFTMOTORDIR, OUTPUT); \\
   pinMode(pins::LEFTMOTORBRAKE, OUTPUT); \\
   pinMode(pins::LEFTMOTORPWM, OUTPUT); \\
+
+ namespace glob { 
+  QTRSensorsRC qtrrc((unsigned char[]) {pins::LINE1, pins::LINE2, pins::LINE3, pins::LINE4, pins::LINE5, pins::LINE6},NUM_SENSORSLINE, TIMEOUT);
+QTRSensorsRC qtrrc1((unsigned char[]) {pins::LINE0, pins::LINE7}, NUM_SENSORSCELL, TIMEOUT);
+unsigned int sensorValuesLine[NUM_SENSORSLINE];
+unsigned int sensorValuesCell[NUM_SENSORSCELL];
+int isleftwall = 0;
+int isrightwall = 0;
+int isfrontwall = 0;
+int cellcenter = 0;
 }
 
 #endif
