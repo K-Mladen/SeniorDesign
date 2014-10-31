@@ -1,5 +1,14 @@
 
 namespace Sensors {
+    class Reflectance {
+    public:
+	int readCellSensor(unsigned int []);
+	
+	
+	private:
+      
+  }
+  
   class Pings {
     public:
       int isleftwallchk();

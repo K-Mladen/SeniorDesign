@@ -1,11 +1,12 @@
-ifndef DRIVER
-define DRIVER
+#ifndef DRIVER
+#define DRIVER
 
 #include "Defines.h"
 #include "DEFINES-TEST.h"
 
 
-class Driver {
+
+class Driver: private Sensors::Reflectance {
   public:
     //Constructors, Destructors
 	Driver();
@@ -18,5 +19,7 @@ class Driver {
 	goStraight
 	
 	private:
-	move(int leftMotor, int rightMotor);
+	move(int leftMotorDir, int rightMotorDir);
 }
+
+#endif

@@ -5,11 +5,13 @@
 #define FALSE 0
 
 
-enum card {NORTH,WEST,SOUTH,EAST}
+enum {NORTH,WEST,SOUTH,EAST}
 //#define NORTH 0
 //#define SOUTH 2
 //#define WEST 1
 //#define EAST 3
+
+enum {FORWARD, BACKWARD}
 
 const int MAXPATHSIZE(50)
 const int DEFAULTMAPSIZE(5)
