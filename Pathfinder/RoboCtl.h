@@ -1,10 +1,14 @@
 
 
-class RoboCtl: public RoboState, public CrPath, public Driver { 
+class RoboCtl: private RoboState, private CrPath, private Driver
+               private Sensors::Pings, private Sensors::RS{ 
   public:
     //Constructor and destructors
 	 RoboCtl();
 	 ~RoboCtl();
+	 
+	 //Decision Making
+	 bool Setcourse
 	 
 	 //Movement Controls
 	 bool RightTurn();
