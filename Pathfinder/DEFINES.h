@@ -71,13 +71,13 @@ namespace pins {
   pinMode(pins::LEFTMOTORPWM, OUTPUT); \\
 
  namespace glob { 
-  QTRSensorsRC qtrrc((unsigned char[]) {pins::LINE1, pins::LINE2, pins::LINE3, pins::LINE4, pins::LINE5, pins::LINE6},NUM_SENSORSLINE, TIMEOUT);
+/*
+ QTRSensorsRC qtrrc((unsigned char[]) {pins::LINE1, pins::LINE2, pins::LINE3, pins::LINE4, pins::LINE5, pins::LINE6},NUM_SENSORSLINE, TIMEOUT);
 QTRSensorsRC qtrrc1((unsigned char[]) {pins::LINE0, pins::LINE7}, NUM_SENSORSCELL, TIMEOUT);
 unsigned int sensorValuesLine[NUM_SENSORSLINE];
 unsigned int sensorValuesCell[NUM_SENSORSCELL];
-int isleftwall = 0;
-int isrightwall = 0;
-int isfrontwall = 0;
+*/
+
 int cellcenter = 0;
 }
 
