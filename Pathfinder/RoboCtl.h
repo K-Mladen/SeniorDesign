@@ -28,7 +28,7 @@ class RoboCtl: private RoboState, private CrPath, private Driver {
 	int getFacing();
 	int getM();
 	int getN();
-	int getIndex
+	int getMapIndex();
 
   private:
 };
