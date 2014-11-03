@@ -1,27 +1,36 @@
+#ifndef ROBOCTL
+#define ROBOCTL
 
 
-class RoboCtl: private RoboState, private CrPath, private Driver
-               private Sensors::Pings, private Sensors::RS{ 
+#include <QTRSensors.h>
+#include "RoboState.h"
+#include "CrPath.h"
+#include "Driver.h"
+#include "DEFINES.h"
+#include "DEFINES-TEST.h"
+
+class RoboCtl: private RoboState, private CrPath, private Driver { 
   public:
     //Constructor and destructors
-	 RoboCtl();
-	 ~RoboCtl();
+	RoboCtl();
+	~RoboCtl();
 	 
-	 //Decision Making
-	 bool Setcourse
+	//Decision Making
+	bool Setcourse();
+	
+	//Movement Controls
+	void turnLeft();
+	void turnRight();
+	void stepForth();
+	void aboutFace();
 	 
-	 //Movement Controls
-	 bool RightTurn();
-	 bool LeftTurn();
-	 bool StepForward();
-	 bool Reverse();
-	 
-	 //Status
-	 int getFacing();
-	 int getM();
-	 int getN();
-	 
-	 private:
-	   int facing;
-	 
+	//Status
+	int getFacing();
+	int getM();
+	int getN();
+	int getIndex
+
+  private:
 };
+
+#endif ROBOCTL
