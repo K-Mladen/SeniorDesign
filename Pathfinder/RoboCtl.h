@@ -16,7 +16,9 @@ class RoboCtl: private RoboState, private CrPath, private Driver {
 	~RoboCtl();
 	 
 	//Decision Making
-	bool Setcourse();
+	void SetCourse();
+
+	private:
 	
 	//Movement Controls
 	void turnLeft();
@@ -25,12 +27,12 @@ class RoboCtl: private RoboState, private CrPath, private Driver {
 	void aboutFace();
 	 
 	//Status
-	int getFacing();
-	int getM();
-	int getN();
 	int getMapIndex();
-
-  private:
+	int getNextFacing(int);
+	
+	//Decision making / function caller
+	int nextAction(int);
+	int stepCount(0);
 };
 
 #endif ROBOCTL
