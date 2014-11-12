@@ -22,28 +22,48 @@ void gostraight
 #include "DEFINES.h"
 #include "DEFINES-TEST.h"
 
+struct noInit {};
+
+
 class Driver {
   public:
   Driver();
+  Driver(noInit);
   ~Driver();
+  void setup();
   
-  byte isCenteredChk(); //readCellSensor
+  int isCenteredChk(); //readCellSensor
   
-  byte isLeftWallChk();
-  byte isRightWallChk();
-  byte isFrontWallChk();
+  int isLeftWallChk();
+  int isRightWallChk();
+  int isFrontWallChk();
   
   void turnLeft();
   void turnRight();
   void goStraight();
   
   private:
-  //byte move(byte dir);
-  //byte isWallChk(byte dir);
+  QTRSensorsRC qtrrc, qtrrc1;
+  //int move(int dir);
+  //int isWallChk(int dir);
   void PID_Drive();
+
   
-  int isleftwall(0), isrightwall(0), isfrontwall(0), cellcenter(0)
-  unsigned int sensorValuesLine[NUM_SENSORSLINE], sensorValuesCell[NUM_SENSORSCELL]
-}
+  
+  //from josh
+  int isleftwall, isrightwall, isfrontwall, cellcenter;
+  unsigned int sensorValuesLine[NUM_SENSORSLINE], sensorValuesCell[NUM_SENSORSCELL];
+    unsigned int linesensors[6];
+	int lastError;
+	int position;
+	int error;
+	int motorSpeed;
+	int rightMotorSpeed;
+	int leftMotorSpeed;
+	//int cellPosition;
+	
+	
+	
+};
 
 #endif

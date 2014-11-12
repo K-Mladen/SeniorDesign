@@ -83,7 +83,9 @@ int RoboState::getFacing() {
   return facing;
 }
 
-
+int RoboState::getMapSize(){
+  return n;
+}
 
 
 

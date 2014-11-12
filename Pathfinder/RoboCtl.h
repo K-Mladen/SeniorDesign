@@ -4,22 +4,30 @@
 
 #include <QTRSensors.h>
 #include "RoboState.h"
-#include "CrPath.h"
+#include "CriticalPath.h"
 #include "Driver.h"
+#include "Comms.h"
 #include "DEFINES.h"
 #include "DEFINES-TEST.h"
 
-class RoboCtl: private RoboState, private CrPath, private Driver { 
+class RoboCtl: private RoboState, private CrPath, private Driver, private Comms { 
   public:
     //Constructor and destructors
 	RoboCtl();
+	RoboCtl(noInit i);
+
 	~RoboCtl();
 	 
-	//Decision Making
-	void SetCourse();
+    void setup();
 
-	private:
+	 
+	//Decision Making
+	void setCourse();
+
+  private:
 	
+   int mode;
+
 	//Movement Controls
 	void turnLeft();
 	void turnRight();
@@ -27,12 +35,13 @@ class RoboCtl: private RoboState, private CrPath, private Driver {
 	void aboutFace();
 	 
 	//Status
-	int getMapIndex();
-	int getNextFacing(int);
+	int getMapIndex(int);
+	int getNextFacing();
 	
 	//Decision making / function caller
-	int nextAction(int);
-	int stepCount(0);
+	void nextAction();
+	int stepCount;
+
 };
 
 #endif ROBOCTL

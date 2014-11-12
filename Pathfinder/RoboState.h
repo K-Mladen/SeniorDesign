@@ -9,6 +9,8 @@ class RoboState {
   RoboState(int m);
   ~RoboState();
   
+  //setup
+  
   //control
   int step();
   void turnRight();
@@ -24,6 +26,7 @@ class RoboState {
   int getY(int i);
   int getIndex();
   int getFacing();
+  int getMapSize();
   
   
   private:
