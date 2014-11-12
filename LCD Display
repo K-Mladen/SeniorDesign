@@ -1,0 +1,33 @@
+#include <LiquidCrystal.h> //library for LCD
+
+ LiquidCrystal lcd(12,11,5,4,3,2); //Initializing Pins for LCD
+ 
+ void setup()
+ {
+   
+
+ lcd.begin(16, 2); //Stating there's 16 columns and two rows on LCD display
+ lcd.setCursor(0,0); //set cursor at 0 column, 0 row
+
+   
+
+ }
+void loop()
+{
+  
+  lcd.clear(); //Clearing Previous Data on LCD
+  lcd.print("ERROR"); //Print whatever you would like. 
+ 
+ //Flashing Display//
+ 
+  // Turn off the display:
+  lcd.noDisplay();
+  delay(500);
+   //Turn on the display:
+  
+  lcd.display();
+  delay(500);
+  
+
+}
+
