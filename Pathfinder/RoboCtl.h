@@ -10,7 +10,7 @@
 #include "DEFINES.h"
 #include "DEFINES-TEST.h"
 
-class RoboCtl: private RoboState, private CrPath, private Driver, private Comms { 
+class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,public LiquidCrystal { 
   public:
     //Constructor and destructors
 	RoboCtl();
@@ -26,7 +26,7 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms 
 
   private:
 	
-   int mode;
+    int mode;
 
 	//Movement Controls
 	void turnLeft();
@@ -41,7 +41,13 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms 
 	//Decision making / function caller
 	void nextAction();
 	int stepCount;
-
+    int currentNS;
+    int nextNS;
+    int currentEW;
+    int nextEW;
+  
+    int NS;
+    int EW;
 };
 
 #endif ROBOCTL

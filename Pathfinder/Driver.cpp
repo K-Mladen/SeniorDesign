@@ -24,8 +24,8 @@ void Driver::setup(){
   isfrontwall = 0;
   cellcenter = 0;
   lastError = 0;
-  qtrrc.init((unsigned char[]) {31, 32, 33, 34, 35, 36},NUM_SENSORSLINE, TIMEOUT);
-  qtrrc1.init((unsigned char[]) {30, 37}, NUM_SENSORSCELL, TIMEOUT);
+  qtrrc.init((unsigned char[]) {RC_1, RC_2, RC_3, RC_4, RC_5, RC_6},NUM_SENSORSLINE, TIMEOUT);
+  qtrrc1.init((unsigned char[]) {RC_0, RC_7}, NUM_SENSORSCELL, TIMEOUT);
     int i;
   for (int i = 0; i < 250; i++){ // calibrate for sometime by sliding the sensors across the line, or you may use auto-calibration instead
     qtrrc.calibrate();   
