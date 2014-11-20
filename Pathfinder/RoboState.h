@@ -1,4 +1,5 @@
 
+
 #ifndef RSTATE
 #define RSTATE
 
@@ -27,6 +28,7 @@ class RoboState {
   int getIndex();
   int getFacing();
   int getMapSize();
+  int areWeBackYet();
   
   
   private:

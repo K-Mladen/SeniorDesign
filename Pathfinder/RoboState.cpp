@@ -46,16 +46,16 @@ int RoboState::step(){
 
 void RoboState::turnRight() {
   switch (facing) {
-    case NORTH
+    case NORTH:
       facing = WEST;
       break;
-    case EAST
+    case EAST:
       facing = NORTH;
       break;
-    case SOUTH
+    case SOUTH:
       facing = EAST;
       break;
-    case WEST
+    case WEST:
 	  facing = SOUTH;
 	  break;
   }
@@ -66,16 +66,16 @@ void RoboState::turnRight() {
 
 void RoboState::turnLeft() {
   switch (facing) {
-    case NORTH
+    case NORTH:
 	  facing = EAST;
 	  break;
-	case EAST
+	case EAST:
 	  facing = SOUTH;
 	  break;
-	case SOUTH
+	case SOUTH:
 	  facing = WEST;
 	  break;
-	case WEST
+	case WEST:
 	  facing = NORTH;
 	  break;
     }
@@ -85,20 +85,25 @@ void RoboState::turnLeft() {
 
 void RoboState::turnBack() {
     switch (facing) {
-    case NORTH
+    case NORTH:
 	  facing = SOUTH;
 	  break;
-	case EAST
+	case EAST:
 	  facing = WEST;
 	  break;
-	case SOUTH
+	case SOUTH:
 	  facing = NORTH;
 	  break;
-	case WEST
+	case WEST:
 	  facing = EAST;
 	  break;
+    }
   //facing = facing - NORTH + SOUTH; //assume facing NORTH, turning back will make you face SOUTH -- this allows for the numbers to be changed later
   //facingAdj(); //put facing within 0=<x<4
+}
+
+int RoboState::areWeBackYet(){
+  return (index == entry && facing == NORTH);
 }
 
 int RoboState::getX() {

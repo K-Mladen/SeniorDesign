@@ -6,49 +6,29 @@ the calling code has an indexed grid on the maze such that any walls are on grid
 there are no loops in the maze -- in other words, there is only one path from any point a to point b
 */
 
-
-
-/*
-class CrPath {
-  public:
-	//constructors, destructors
-	CrPath(){};
-	~CrPath(){};
-	
-	//public functions
-	bool setNextStep(int i);
-	int getNextStep(int i);
-	int size();
-	  
-  private:
-    vector<int> path;
-}
-*/
-
-//external header file
-
 #ifndef CRITICALPATH
 #define CRITICALPATH
 
 #include "DEFINES.H"
 
-	class CrPath {
-	public:
-	  //constructors, destructors
-	  CrPath(); //class should not be created without initializing
-	  ~CrPath();
-	  //public access functions
-	  bool setNextStep(int i);
-	  int getNextStep(int i);
-	  int getSize();
-	  
-	private:
-	  int size;
-	  int cpDone;
- 	  int path[MAXPATHSIZE];
-	  
-	  int push_back(int i);
-	  int pop_back();
-	};
+class CrPath {
+  public:
+    //constructors, destructors
+    CrPath(); //class should not be created without initializing
+    ~CrPath();
+    //public access functions
+    bool setNextStep(int i);
+    int getNextStep(int i);
+    int getSize();
+	int areWeDoneYet();
+    
+  private:
+    int size;
+    int cpDone;
+    int path[MAXPATHSIZE];
+    
+    int push_back(int i);
+    int pop_back();
+};
   
 #endif

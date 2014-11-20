@@ -3,6 +3,7 @@
 
 
 #include <QTRSensors.h>
+#include <LiquidCrystal.h>
 #include "RoboState.h"
 #include "CriticalPath.h"
 #include "Driver.h"
@@ -10,11 +11,11 @@
 #include "DEFINES.h"
 #include "DEFINES-TEST.h"
 
-class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,public LiquidCrystal { 
+class RoboCtl: private RoboState, private CrPath, private Driver, private Comms, public LiquidCrystal { 
   public:
     //Constructor and destructors
 	RoboCtl();
-	RoboCtl(noInit i);
+	//RoboCtl(noInit i) : LiquidCrystal(1,LCD_RS,255,LCD_EN,LCD_D0,LCD_D1,LCD_D2,LCD_D3,0,0,0,0);
 
 	~RoboCtl();
 	 
@@ -22,7 +23,7 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
 
 	 
 	//Decision Making
-	void setCourse();
+	int setCourse();
 
   private:
 	
@@ -36,10 +37,13 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
 	 
 	//Status
 	int getMapIndex(int);
+	int calNextNS();
+	int calNextEW();
 	int getNextFacing();
 	
 	//Decision making / function caller
 	void nextAction();
+	int nextIndex;
 	int stepCount;
     int currentNS;
     int nextNS;

@@ -1,4 +1,6 @@
+
 #include <QTRSensors.h>
+#include <LiquidCrystal.h>
 #include "RoboCtl.h"
 #include "RoboState.h"
 #include "CriticalPath.h"
@@ -8,26 +10,25 @@
 #include "DEFINES-TEST.h"
 #include "Arduino.h"
 
-RoboCtl::RoboCtl() {
-  setup();
+RoboCtl::RoboCtl()  : LiquidCrystal::LiquidCrystal(static_cast<uint8_t>(LCD_RS),static_cast<uint8_t>(LCD_EN),
+	                          static_cast<uint8_t>(LCD_D0),static_cast<uint8_t>(LCD_D1),static_cast<uint8_t>(LCD_D2),static_cast<uint8_t>(LCD_D3)) {
+  RoboCtl::setup();
 }
 
-RoboCtl::RoboCtl(noInit i) {}
+//RoboCtl::RoboCtl(noInit i) {}
 
-RoboCtl::~RoboCtl() {
-  RoboCtl::setup()
-}
+RoboCtl::~RoboCtl() {}
 
 
 void RoboCtl::setup() {
   stepCount = 1;
   mode = SEARCH;
-  LiquidCrystal::init(1,LCD_RS,255,LCD_EN,LCD_D0,LCD_D1,LCD_D2,LCD_D3,0,0,0,0);
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
-  
+  LiquidCrystal::setCursor(0,0);
+  LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
 }
 
-void RoboCtl::setCourse() {
+int RoboCtl::setCourse() {
   if(mode == SEARCH) {
     if(!Driver::isLeftWallChk()) { 
 	  LiquidCrystal::setCursor(8,1);
@@ -52,7 +53,13 @@ void RoboCtl::setCourse() {
   } else {
     RoboCtl::nextAction();
   }
-
+  
+  LiquidCrystal::setCursor(8,0);
+  LiquidCrystal::print("SQUARE   ");
+  LiquidCrystal::setCursor(15,0);
+  LiquidCrystal::print(String(RoboState::getIndex()));
+  
+  return RoboState::areWeBackYet();
 }
 
 
@@ -84,13 +91,13 @@ void RoboCtl::aboutFace() {
   RoboCtl::turnLeft();
 }
 
-
 int RoboCtl::getNextFacing()
 {
+  nextIndex = CrPath::getNextStep(stepCount);
   currentNS = RoboState::getY();
-  nextNS = RoboState::getNextY();
+  nextNS = RoboState::getY(nextIndex);
   currentEW = RoboState::getX();
-  nextEW = RoboState::getNextX();
+  nextEW = RoboState::getX(nextIndex);;
   
   NS = (currentNS != nextNS);
   EW = (currentEW != nextEW);
@@ -152,3 +159,4 @@ int RoboCtl::getMapIndex(int i) {
     //return -1;
   //}
 }
+
