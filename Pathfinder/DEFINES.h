@@ -11,9 +11,9 @@ enum {NORTH,WEST,SOUTH,EAST};
 //#define EAST 3
 
 enum {FORWARD, BACKWARD};
-enum {SEARCH,CRITICALPATH};
+enum {SEARCH,DESTROY};
 //enum {HIGH = 1, LOW = 0};
-enum {FALSE = 0, TRUE = 1};
+enum {FALSE = false, TRUE = true};
 #define LCD_COLS 16
 #define LCD_ROWS 2
 

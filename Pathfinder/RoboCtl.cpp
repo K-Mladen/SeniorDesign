@@ -29,29 +29,35 @@ void RoboCtl::setup() {
 }
 
 int RoboCtl::setCourse() {
+  int r;
   if(mode == SEARCH) {
     if(!Driver::isLeftWallChk()) { 
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("    LEFT");
 	  RoboCtl::turnLeft();
 	  RoboCtl::stepForth();
+	  r = WEST;
 	  } else if (!Driver::isFrontWallChk()) {
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print(" FORWARD");
 	  RoboCtl::stepForth();
+	  r = NORTH;
 	  } else if (!Driver::isRightWallChk()) {
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("   RIGHT");
 	  RoboCtl::turnRight();
 	  RoboCtl::stepForth();
+	  r = EAST;
 	  } else {
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("    BACK");
 	  RoboCtl::aboutFace();
 	  RoboCtl::stepForth();
+	  r = SOUTH;
 	  }
   } else {
     RoboCtl::nextAction();
+	r = -1;
   }
   
   LiquidCrystal::setCursor(8,0);
@@ -59,7 +65,11 @@ int RoboCtl::setCourse() {
   LiquidCrystal::setCursor(15,0);
   LiquidCrystal::print(String(RoboState::getIndex()));
   
-  return RoboState::areWeBackYet();
+  return r;//RoboState::areWeBackYet();
+}
+
+void RoboCtl::toggleMode() {
+  mode=(mode!=SEARCH)?SEARCH:DESTROY;  
 }
 
 

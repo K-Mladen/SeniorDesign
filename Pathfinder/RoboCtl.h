@@ -24,6 +24,7 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
 	 
 	//Decision Making
 	int setCourse();
+	void toggleMode();
 
   private:
 	
