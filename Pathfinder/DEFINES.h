@@ -5,6 +5,7 @@
 
 
 enum {NORTH,WEST,SOUTH,EAST};
+enum {LEFT=0,FRONT=1,RIGHT=2};
 //#define NORTH 0
 //#define SOUTH 2
 //#define WEST 1

@@ -32,18 +32,18 @@ void RoboCtl::setup() {
 void RoboCtl::setCourse() {
   //int r;
   if(mode == SEARCH) {
-    if(!Driver::isLeftWallChk()) { 
+    if(!Driver::isWallChk(LEFT)) { 
 	//  LiquidCrystal::setCursor(8,1);
       //LiquidCrystal::print("    LEFT");
 	  RoboCtl::turnLeft();
 	  RoboCtl::stepForth();
 	 // r = WEST;
-	  } else if (!Driver::isFrontWallChk()) {
+	  } else if (!Driver::isWallChk(FRONT)) {
 	//  LiquidCrystal::setCursor(8,1);
       //LiquidCrystal::print(" FORWARD");
 	  RoboCtl::stepForth();
 	  //r = NORTH;
-	  } else if (!Driver::isRightWallChk()) {
+	  } else if (!Driver::isWallChk(RIGHT)) {
 //	  LiquidCrystal::setCursor(8,1);
   //    LiquidCrystal::print("   RIGHT");
 	  RoboCtl::turnRight();
@@ -77,21 +77,21 @@ void RoboCtl::toggleMode() {
 void RoboCtl::turnRight() {
   Driver::turnRight();
   RoboState::turnRight();
-  if(Driver::isLeftWallChk())
+  if(Driver::isWallChk(LEFT))
     Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
 }
 
 void RoboCtl::turnLeft() {
   Driver::turnLeft();
   RoboState::turnLeft();
-  if(Driver::isLeftWallChk()) 
+  if(Driver::isWallChk(LEFT)) 
     Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
 }
 
 void RoboCtl::stepForth() {
   Driver::goStraight();
   RoboState::step();
-  if(Driver::isLeftWallChk())
+  if(Driver::isWallChk(LEFT))
     Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
   if ( mode != SEARCH ) stepCount++;
 }

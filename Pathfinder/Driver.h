@@ -34,9 +34,13 @@ class Driver {
   
   int isCenteredChk(); //readCellSensor
   
+  int isWallChk(int);
+  
+  /*
   int isLeftWallChk();
   int isRightWallChk();
   int isFrontWallChk();
+  */
   
   void turnLeft();
   void turnRight();
@@ -51,6 +55,7 @@ class Driver {
   
   
   //from josh
+  long pingtime, pingdist;
   int isleftwall, isrightwall, isfrontwall, cellcenter;
   unsigned int sensorValuesLine[NUM_SENSORSLINE], sensorValuesCell[NUM_SENSORSCELL];
     unsigned int linesensors[6];

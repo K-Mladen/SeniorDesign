@@ -60,7 +60,30 @@ int Driver::isCenteredChk(){
   } else return 0;
  //return cellPosition;
 }
+ 
+int Driver::isWallChk(int side){
+//Tester code for ultrasonic sensor, NOTE - Pins have not been set!!!, consider for statement to take average
+  static const int trig[] = {ltrigPin,ftrigPin,rtrigPin};
+  static const int echo[] = {lechoPin,fechoPin,rechoPin};
+  static const int AVE_COUNT = 10;
+  static int it = 0;
+  //delayMicroseconds(100);
+  digitalWrite(trig[side], LOW); 
+  pingtime = 0;
+  for(it=0;it<AVE_COUNT;it++){
+    delayMicroseconds(2);
+    digitalWrite(trig[side], HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trig[side], LOW);
+    pingtime += pulseIn(echo[side], HIGH);
+  }	
+  pingdist = (pingtime/2) / 29.1;
   
+  return (pingdist < 10*AVE_COUNT);
+}
+
+/*
+ 
 int Driver::isLeftWallChk(){
     //Tester code for ultrasonic sensor, NOTE - Pins have not been set!!!, consider for statement to take average
   long pinglefttime, pingleftdist;
@@ -81,6 +104,8 @@ int Driver::isLeftWallChk(){
     return 0;
   }
 }  
+
+
  
 int Driver::isRightWallChk(){
 //Tester code for ultrasonic sensor, NOTE - Pins have not been set!!!, consider for statement to take average
@@ -123,7 +148,7 @@ int Driver::isFrontWallChk(){
     return 0;
   }
 }
-
+*/
 void Driver::turnLeft(){
  digitalWrite(rightMotordir, HIGH);
  digitalWrite(rightMotorbrake, LOW);
