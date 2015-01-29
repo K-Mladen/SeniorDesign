@@ -23,12 +23,15 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
 
 	 
 	//Decision Making
-	int setCourse();
+	void setCourse();
+	void nextAction();
 	void toggleMode();
 
   private:
 	
     int mode;
+	int currentFacing;
+	int nextFacing;
 
 	//Movement Controls
 	void turnLeft();
@@ -43,7 +46,6 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
 	int getNextFacing();
 	
 	//Decision making / function caller
-	void nextAction();
 	int nextIndex;
 	int stepCount;
     int currentNS;

@@ -26,14 +26,24 @@ void setup(){
   pinMode(leftMotordir, OUTPUT);
   pinMode(leftMotorbrake, OUTPUT);
   pinMode(leftMotorPWM, OUTPUT);
+  pinMode(LED_Done,OUTPUT);
   
+  Serial.print("Beginning calibration");
   RoboCtl torro;
  
   //torro.setup();  
   
-  while(!torro.setCourse()){
-  
+  Serial.print("Starting Course");
+  while(1){
+    Serial.print("Act");
+    torro.setCourse();
+    Serial.println("ion");
   };
+  Serial.print("Toggle");
+  torro.toggleMode();
+  while(1) {
+   torro.setCourse();
+  } 
 }
 
 void loop(){

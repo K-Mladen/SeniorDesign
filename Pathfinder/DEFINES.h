@@ -13,7 +13,7 @@ enum {NORTH,WEST,SOUTH,EAST};
 enum {FORWARD, BACKWARD};
 enum {SEARCH,DESTROY};
 //enum {HIGH = 1, LOW = 0};
-enum {FALSE = false, TRUE = true};
+enum {FALSE = 0, TRUE = 1};
 #define LCD_COLS 16
 #define LCD_ROWS 2
 
@@ -33,11 +33,11 @@ enum {FALSE = false, TRUE = true};
 
 
 #define LCD_RS 20
-#define LCD_EN 21
-#define LCD_D0 22
+#define LCD_EN 22
+#define LCD_D0 21
 #define LCD_D1 23
-#define LCD_D2 24
-#define LCD_D3 25
+#define LCD_D2 25
+#define LCD_D3 27
 
 #define RC_0 30
 #define RC_1 31
@@ -52,7 +52,7 @@ enum {FALSE = false, TRUE = true};
 #define rightMotorbrake 9
 #define rightMotorPWM 44
 #define leftMotordir 43
-#define leftMotorbrake 8
+#define leftMotorbrake 8 
 #define leftMotorPWM 45
 
 #define ftrigPin 50
@@ -64,5 +64,6 @@ enum {FALSE = false, TRUE = true};
 #define rtrigPin 48
 #define rechoPin 49
 
+#define LED_Done 10
 
 #endif
