@@ -33,16 +33,16 @@ void setup(){
  
   //torro.setup();  
   
-  Serial.println(" - - Starting Course");
+  Serial.print("Starting Course");
   while(1){
-
+    Serial.print("Act");
     torro.setCourse();
+    Serial.println("ion");
   };
   Serial.print("Toggle");
   torro.toggleMode();
   while(1) {
    torro.setCourse();
-   delay(100);
   } 
 }
 
@@ -51,5 +51,4 @@ void loop(){
 //torro.setCourse();
   
 }
-
 

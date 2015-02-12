@@ -20,7 +20,7 @@ class CrPath {
     bool setNextStep(int i);
     int getNextStep(int i);
     int getSize();
-	int areWeDoneYet();
+	int getCompletionState();
     
   private:
     int size;

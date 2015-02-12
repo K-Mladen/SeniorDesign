@@ -24,47 +24,50 @@ void RoboCtl::setup() {
   stepCount = 1;
   mode = SEARCH;
 
-  //LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
-  //LiquidCrystal::setCursor(0,0);
-  //LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
+  LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
+  LiquidCrystal::setCursor(0,0);
+  LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
 }
 
 void RoboCtl::setCourse() {
   //int r;
   if(mode == SEARCH) {
     if(!Driver::isWallChk(LEFT)) { 
-	//  LiquidCrystal::setCursor(8,1);
-      //LiquidCrystal::print("    LEFT");
+	  LiquidCrystal::setCursor(8,1);
+      LiquidCrystal::print("    LEFT");
 	  RoboCtl::turnLeft();
 	  RoboCtl::stepForth();
 	 // r = WEST;
 	  } else if (!Driver::isWallChk(FRONT)) {
-	//  LiquidCrystal::setCursor(8,1);
-      //LiquidCrystal::print(" FORWARD");
+	  LiquidCrystal::setCursor(8,1);
+      LiquidCrystal::print(" FORWARD");
 	  RoboCtl::stepForth();
 	  //r = NORTH;
 	  } else if (!Driver::isWallChk(RIGHT)) {
-//	  LiquidCrystal::setCursor(8,1);
-  //    LiquidCrystal::print("   RIGHT");
+	  LiquidCrystal::setCursor(8,1);
+      LiquidCrystal::print("   RIGHT");
 	  RoboCtl::turnRight();
 	  RoboCtl::stepForth();
 	//  r = EAST;
 	  } else {
-//	  LiquidCrystal::setCursor(8,1);
-  //    LiquidCrystal::print("    BACK");
+	  LiquidCrystal::setCursor(8,1);
+      LiquidCrystal::print("    BACK");
 	  RoboCtl::aboutFace();
 	  RoboCtl::stepForth();
 	//  r = SOUTH;
 	  }
+	  if (CrPath::getCompletionState()) mode = SPIN;
+  } else if (mode == SPIN){
+	  RoboCtl::aboutFace();
   } else {
     RoboCtl::nextAction();
 	//r = -1;
   }
   
-  //LiquidCrystal::setCursor(8,0);
-//  LiquidCrystal::print("SQUARE   ");
-  //LiquidCrystal::setCursor(15,0);
-  //LiquidCrystal::print(String(RoboState::getIndex()));
+  LiquidCrystal::setCursor(8,0);
+  LiquidCrystal::print("SQUARE   ");
+  LiquidCrystal::setCursor(15,0);
+  LiquidCrystal::print(String(RoboState::getIndex()));
   
   return; //RoboState::areWeBackYet();
 }

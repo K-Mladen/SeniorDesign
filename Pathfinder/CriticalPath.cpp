@@ -53,3 +53,7 @@ int CrPath::pop_back(){
   size--;
   path[size] = 0;
 }
+
+int CrPath::getCompletionState(){
+	return cpDone;
+}

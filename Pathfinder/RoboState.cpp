@@ -2,6 +2,7 @@
 
 #include "DEFINES.h"
 #include "RoboState.h"
+#include "Arduino.h"
 
 
 //-----------------------\\
@@ -41,6 +42,10 @@ int RoboState::step(){
 	}
   } while(facingAdj());
     index = calIndex(x,y);
+	Serial.print("Current x ");
+	Serial.print(x);
+	Serial.print(" || Current y ");
+	Serial.println(y);
 	return index;
 }
 

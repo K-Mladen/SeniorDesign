@@ -19,9 +19,9 @@ Driver::Driver(noInit i) {}
 Driver::~Driver(){}
 
 void Driver::setup(){
-  isleftwall = 0;
-  isrightwall = 0;
-  isfrontwall = 0;
+  //isleftwall = 0;
+  //isrightwall = 0;
+  //isfrontwall = 0;
   cellcenter = 0;
   lastError = 0;
   qtrrc.init((unsigned char[]) {RC_1, RC_2, RC_3, RC_4, RC_5, RC_6},NUM_SENSORSLINE, TIMEOUT);
@@ -65,7 +65,7 @@ int Driver::isWallChk(int side){
 //Tester code for ultrasonic sensor, NOTE - Pins have not been set!!!, consider for statement to take average
   static const int trig[] = {ltrigPin,ftrigPin,rtrigPin};
   static const int echo[] = {lechoPin,fechoPin,rechoPin};
-  static const int AVE_COUNT = 10;
+  static const int AVE_COUNT = 1;
   static int it = 0;
   //delayMicroseconds(100);
   digitalWrite(trig[side], LOW); 
@@ -78,8 +78,13 @@ int Driver::isWallChk(int side){
     pingtime += pulseIn(echo[side], HIGH);
   }	
   pingdist = (pingtime/2) / 29.1;
-  
-  return (pingdist < 10*AVE_COUNT);
+  /* 
+  Serial.print("Wall: ");
+  Serial.print(side);
+  Serial.print(" ||Distance: ");
+  Serial.println(pingdist);
+   */
+  return (pingdist < 15*AVE_COUNT);
 }
 
 /*
@@ -156,7 +161,7 @@ void Driver::turnLeft(){
  digitalWrite(leftMotordir, LOW);
  digitalWrite(leftMotorbrake, LOW);
  analogWrite(leftMotorPWM, 150);
- delay(900);
+ delay(850);
 }
 
 void Driver::turnRight(){
@@ -166,7 +171,7 @@ void Driver::turnRight(){
  digitalWrite(leftMotordir, HIGH);
  digitalWrite(leftMotorbrake, LOW);
  analogWrite(leftMotorPWM, 150);
- delay(900);
+ delay(850);
 }
 
 void Driver::goStraight(){
@@ -192,7 +197,8 @@ void Driver::PID_Drive(){
   lastError = error;
   rightMotorSpeed = rightBaseSpeed + motorSpeed;
   leftMotorSpeed = leftBaseSpeed - motorSpeed;
-  
+
+  /* 
   Serial.print(linesensors[0]);
   Serial.print(" ");
   Serial.print(linesensors[1]);
@@ -206,7 +212,8 @@ void Driver::PID_Drive(){
   Serial.print(linesensors[5]);
   Serial.print(" ");
   Serial.print(linesensors[6]);
-  Serial.println(" ");
+  Serial.println(" "); 
+  */
   
   if (rightMotorSpeed > rightMaxSpeed ) rightMotorSpeed = rightMaxSpeed; // prevent the motor from going beyond max speed
   if (leftMotorSpeed > leftMaxSpeed ) leftMotorSpeed = leftMaxSpeed; // prevent the motor from going beyond max speed

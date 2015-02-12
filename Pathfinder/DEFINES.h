@@ -12,7 +12,7 @@ enum {LEFT=0,FRONT=1,RIGHT=2};
 //#define EAST 3
 
 enum {FORWARD, BACKWARD};
-enum {SEARCH,DESTROY};
+enum {SEARCH,DESTROY,SPIN};
 //enum {HIGH = 1, LOW = 0};
 enum {FALSE = 0, TRUE = 1};
 #define LCD_COLS 16
@@ -33,12 +33,12 @@ enum {FALSE = 0, TRUE = 1};
 
 
 
-#define LCD_RS 20
-#define LCD_EN 22
-#define LCD_D0 21
-#define LCD_D1 23
-#define LCD_D2 25
-#define LCD_D3 27
+#define LCD_RS 2
+#define LCD_EN 3
+#define LCD_D0 4
+#define LCD_D1 5
+#define LCD_D2 6
+#define LCD_D3 7
 
 #define RC_0 30
 #define RC_1 31
