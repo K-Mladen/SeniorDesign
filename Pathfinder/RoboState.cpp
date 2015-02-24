@@ -42,11 +42,11 @@ int RoboState::step(){
 	}
   } while(facingAdj());
     index = calIndex(x,y);
-	Serial.print("Current x ");
+	/* Serial.print("Current x ");
 	Serial.print(x);
 	Serial.print(" || Current y ");
 	Serial.println(y);
-	return index;
+	 */return index;
 }
 
 void RoboState::turnRight() {

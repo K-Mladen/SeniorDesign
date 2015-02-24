@@ -27,6 +27,9 @@ void setup(){
   pinMode(leftMotorbrake, OUTPUT);
   pinMode(leftMotorPWM, OUTPUT);
   pinMode(LED_Done,OUTPUT);
+  pinMode(CAMERA_PULSE,OUTPUT);
+  
+  
   
   Serial.print("Beginning calibration");
   RoboCtl torro;

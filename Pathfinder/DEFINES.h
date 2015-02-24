@@ -3,6 +3,10 @@
 
 
 
+//Constants
+
+//Chuck's Constants
+#define DATARATE 9600
 
 enum {NORTH,WEST,SOUTH,EAST};
 enum {LEFT=0,FRONT=1,RIGHT=2};
@@ -40,6 +44,8 @@ enum {FALSE = 0, TRUE = 1};
 #define LCD_D2 6
 #define LCD_D3 7
 
+#define CAMERA_PULSE 20
+
 #define RC_0 30
 #define RC_1 31
 #define RC_2 32
@@ -65,6 +71,6 @@ enum {FALSE = 0, TRUE = 1};
 #define rtrigPin 48
 #define rechoPin 49
 
-#define LED_Done 10
+#define LED_Done 13
 
 #endif

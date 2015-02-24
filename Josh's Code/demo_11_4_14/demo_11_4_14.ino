@@ -125,7 +125,10 @@ int readCellSensor()
   }
   Serial.println();
   
-  if(sensorValuesCell[0] > 800 && sensorValuesCell[1] > 800)//if we are in the center of the cell, stop
+  if (sensorValuesCell[0] < 300 && sensorValuesCell[1] < 300 && sensorValuesCell[2] < 300 && sensorValuesCell[3] < 300 && sensorValuesCell[4] < 300 && sensorValuesCell[5] < 300 && 
+      sensorValuesCell[6] < 300 && sensorValuesCell[7] <300)
+      gostraight(); 
+  else if(sensorValuesCell[0] > 800 && sensorValuesCell[1] > 800)//if we are in the center of the cell, stop
   {
     
     analogWrite(rightMotorPWM, 0);
@@ -255,7 +258,7 @@ void turnleft()
  digitalWrite(leftMotordir, LOW);
  digitalWrite(leftMotorbrake, LOW);
  analogWrite(leftMotorPWM, 150);
- delay(955);
+ delay(850);
  }
 
 
@@ -269,7 +272,7 @@ void turnleft()
  digitalWrite(leftMotordir, HIGH);
  digitalWrite(leftMotorbrake, LOW);
  analogWrite(leftMotorPWM, 150);
- delay(955);
+ delay(850);
  }
  
  void gostraight()
@@ -293,7 +296,7 @@ void turnleft()
  digitalWrite(leftMotordir, HIGH);
  digitalWrite(leftMotorbrake, LOW);
  analogWrite(leftMotorPWM, 150);
- delay(1800);  
+ delay(1700);  
  }
 
 
