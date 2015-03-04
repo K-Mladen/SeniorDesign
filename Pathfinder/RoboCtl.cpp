@@ -23,9 +23,7 @@ RoboCtl::~RoboCtl() {}
 void RoboCtl::setup() {
   stepCount = 1;
   mode = SEARCH;
-  #ifdef NOROBOT
-    Serial.println("RoboCtl Setup");
-  #endif
+  Serial.println("RoboCtl Setup");
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
   LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
