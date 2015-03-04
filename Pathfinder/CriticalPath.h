@@ -9,6 +9,7 @@ there are no loops in the maze -- in other words, there is only one path from an
 #ifndef CRITICALPATH
 #define CRITICALPATH
 
+#include "DEFINES-TEST.h"
 #include "DEFINES.H"
 
 class CrPath {

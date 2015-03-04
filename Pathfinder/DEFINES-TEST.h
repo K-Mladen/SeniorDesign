@@ -1,13 +1,22 @@
-
-#ifdef TESTCASE
+#ifdef TESTMODE_ON //define TESTMODE_ON in .ino file only in order to enable for whole robot
 //TESTCASE shall be an array of numbers in brackets, terminated by -1, which includes at least one 0 to mark the end of the maze.
+struct test_globals {
+  int iter;
+  test_globals(){
+	  iter = 0;
+  }
+};
 
+test_globals tg;
+
+//Uncomment any of these that are appropriate
+  #define NOROBOT
 
 //Uncomment only one of the following lines for the desired test case.
   //#define CPTEST5X5MAZESIM
   //#define CPTEST7X7SNAKESNLADDERS
   //#define CPTESTGIVENCP5X5  
-  //#define TESTTURNS  
+  #define TESTTURNS  
 
 
   #ifdef CPTEST5X5MAZESIM
@@ -40,5 +49,7 @@
 	#define _R_ 2
 	#define TESTCASE {_L_,_R_,_L_,_R_,_F_,_F_,_F_,_L_,_L_,_R_,_R_,_F_,_F_}
   #endif
-		
+
+
+#undef TESTMODE_ON //This precompiler code will only run once  
 #endif

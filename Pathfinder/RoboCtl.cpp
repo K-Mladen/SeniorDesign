@@ -23,7 +23,9 @@ RoboCtl::~RoboCtl() {}
 void RoboCtl::setup() {
   stepCount = 1;
   mode = SEARCH;
-
+  #ifdef NOROBOT
+    Serial.println("RoboCtl Setup");
+  #endif
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
   LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
@@ -68,6 +70,10 @@ void RoboCtl::setCourse() {
   LiquidCrystal::print("SQUARE   ");
   LiquidCrystal::setCursor(15,0);
   LiquidCrystal::print(String(RoboState::getIndex()));
+  #ifdef TESTCASE
+    Serial.print("square ");
+	Serial.println(RoboState::getIndex());
+  #endif
   
   return; //RoboState::areWeBackYet();
 }

@@ -4,6 +4,7 @@
 #include "Driver.h"
 #include "Arduino.h"
 
+#ifndef NOROBOT //testmode set in DEFINES-TEST disables all these
 
 //all global variables, defines here --I'll put them where they need to go
 
@@ -228,3 +229,33 @@ void Driver::PID_Drive(){
   digitalWrite(leftMotorbrake, LOW);
   analogWrite(leftMotorPWM, leftMotorSpeed); 
 }
+
+#else
+
+Driver::Driver(){Serial.println("DRIVER-SETUP");}
+Driver::Driver(NoInit){Serial.println("DRIVER-SETUP-NOINIT");}
+Driver::~Driver(){Serial.println("DRIVER-DESTRUCT");}
+void Driver::setup(){Serial.println("\"Calibration\"");}
+int Driver::isCenteredChk(){}
+int Driver::isWallChk(int side){
+	Serial.print("Step: ");
+	Serial.println(tg.iter);
+	Serial.print("Checking side: ");
+	switch(side) {
+	  case 0: Serial.println("left"); break;
+	  case 1: Serial.println("front"); break;
+	  case 2: Serial.println("right"); break;
+	  default: Serial.println("error"); break;
+    } 
+	if (TESTCASE[tg.iter] == side) return 0;
+	else return 1;
+}
+void Driver::turnLeft(){}
+void Driver::turnRight(){}
+void Driver::goStraight(){tg.iter++; PID_Drive();}
+
+void Driver::PID_Drive(){delay(3000);}
+
+
+
+#endif
