@@ -26,7 +26,8 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
 	void setCourse();
 	void nextAction();
 	void toggleMode();
-
+    void stepForth();
+	
   private:
 	
     int mode;
@@ -36,7 +37,6 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
 	//Movement Controls
 	void turnLeft();
 	void turnRight();
-	void stepForth();
 	void aboutFace();
 	 
 	//Status

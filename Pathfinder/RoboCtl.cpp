@@ -66,9 +66,17 @@ void RoboCtl::setCourse() {
   
   LiquidCrystal::setCursor(8,0);
   LiquidCrystal::print("SQUARE   ");
-  LiquidCrystal::setCursor(15,0);
+  LiquidCrystal::setCursor(14,0);
   LiquidCrystal::print(String(RoboState::getIndex()));
   
+  LiquidCrystal::setCursor(0,1);
+  switch (RoboState::getFacing()) {
+	case NORTH: LiquidCrystal::print("NORTH   "); break;
+	case EAST: LiquidCrystal::print("EAST    "); break;
+	case WEST: LiquidCrystal::print("WEST    "); break;
+	case SOUTH: LiquidCrystal::print("SOUTH   "); break;
+	default: LiquidCrystal::print("Facing error");
+  }
   return; //RoboState::areWeBackYet();
 }
 

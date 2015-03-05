@@ -49,7 +49,7 @@ int RoboState::step(){
 	 */return index;
 }
 
-void RoboState::turnRight() {
+void RoboState::turnLeft() {
   switch (facing) {
     case NORTH:
       facing = WEST;
@@ -69,7 +69,7 @@ void RoboState::turnRight() {
   //facingAdj(); //put facing within 0=<x<4
 }
 
-void RoboState::turnLeft() {
+void RoboState::turnRight() {
   switch (facing) {
     case NORTH:
 	  facing = EAST;
