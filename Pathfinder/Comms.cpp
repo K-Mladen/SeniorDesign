@@ -7,7 +7,7 @@ Comms::Comms(){}
 Comms::~Comms(){}
 
 void Comms::setup(){
-    //Serial1.begin(DATARATE);
+//	Serial1.begin(DATARATE);
 	//digitalWrite(CAMERA_PULSE,
 }
 

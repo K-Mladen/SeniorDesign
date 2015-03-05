@@ -62,15 +62,6 @@ int Driver::isCenteredChk(){
 }
  
 int Driver::isWallChk(int side){
-// MK -- Tester code for search mode
-static int count = 0;
-const static int _L_ = LEFT, _R_ = RIGHT, _F_ = FRONT;
-static int TESTCASE[] = {_L_,_R_,_L_,_R_,_F_,_F_,_F_,_L_,_L_,_R_,_R_,_F_,_F_};
-if (side == TESTCASE[count]){
-  count ++;
-return 0; }
-else return 1;  
-	
 //Tester code for ultrasonic sensor, NOTE - Pins have not been set!!!, consider for statement to take average
   static const int trig[] = {ltrigPin,ftrigPin,rtrigPin};
   static const int echo[] = {lechoPin,fechoPin,rechoPin};
