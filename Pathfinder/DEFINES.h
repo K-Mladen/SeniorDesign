@@ -5,39 +5,26 @@
 
 //Constants
 
-#define LEFT=0
-#define FRONT=1
-#define RIGHT=2
-
-#define NORTH 0
-#define SOUTH 2
-#define WEST 1
-#define EAST 3
-
-#define FORWARD 0
-#define BACKWARD 1
-
-#define SEARCH 0
-#define DESTROY 1
-#define SPIN 2
-
-#define HIGH 1
-#DEFINE LOW 0
-
-#define FALSE 0
-#define TRUE 1
-
-#define LCD_COLS 16
-#define LCD_ROWS 2
-
-//Mladen's Constants
-#define MAXPATHSIZE 50
-#define DEFAULTMAPSIZE 5
-
 //Chuck's Constants
 #define DATARATE 9600
 
-//Josh's Constants
+enum {NORTH,WEST,SOUTH,EAST};
+enum {LEFT=0,FRONT=1,RIGHT=2};
+//#define NORTH 0
+//#define SOUTH 2
+//#define WEST 1
+//#define EAST 3
+
+enum {FORWARD, BACKWARD};
+enum {SEARCH,DESTROY,SPIN};
+//enum {HIGH = 1, LOW = 0};
+enum {FALSE = 0, TRUE = 1};
+#define LCD_COLS 16
+#define LCD_ROWS 2
+
+#define MAXPATHSIZE 50
+#define DEFAULTMAPSIZE 5
+
 #define Kp .090 // experiment to determine this, 
 #define Kd 4 // experiment to determine this, slowly increase the speeds and adjust this value. (Note: Kp < Kd) 
 #define rightMaxSpeed 250 // max speed of the robot
@@ -49,7 +36,6 @@
 #define TIMEOUT       2000  // waits for 2500 us for sensor outputs to go low
 
 
-//Pin Numbers
 
 #define LCD_RS 2
 #define LCD_EN 3
