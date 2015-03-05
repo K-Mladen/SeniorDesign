@@ -5,9 +5,9 @@
 
 //Constants
 
-#define LEFT 0
-#define FRONT 1
-#define RIGHT 2
+#define LEFT=0
+#define FRONT=1
+#define RIGHT=2
 
 #define NORTH 0
 #define SOUTH 2
@@ -22,7 +22,7 @@
 #define SPIN 2
 
 #define HIGH 1
-#define LOW 0
+#DEFINE LOW 0
 
 #define FALSE 0
 #define TRUE 1
