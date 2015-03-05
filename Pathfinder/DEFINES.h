@@ -1,7 +1,11 @@
 #ifndef DEFS
 #define DEFS
 
-
+//Compile-settings
+//Uncomment any of these that are appropriate
+  #define NOROBOT
+  //#define LCD_CONNECTED
+  #define SERIAL_MODE
 
 //Constants
 
@@ -27,8 +31,10 @@
 #define FALSE 0
 #define TRUE 1
 
-#define LCD_COLS 16
-#define LCD_ROWS 2
+#ifdef LCD_CONNECTED
+  #define LCD_COLS 16
+  #define LCD_ROWS 2
+#endif
 
 //Mladen's Constants
 #define MAXPATHSIZE 50
@@ -51,12 +57,14 @@
 
 //Pin Numbers
 
+//#ifdef LCD_CONNECTED
 #define LCD_RS 2
 #define LCD_EN 3
 #define LCD_D0 4
 #define LCD_D1 5
 #define LCD_D2 6
 #define LCD_D3 7
+//#endif
 
 #define CAMERA_PULSE 20
 

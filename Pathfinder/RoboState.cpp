@@ -10,18 +10,21 @@
 //-----------------------\\
 
 RoboState::RoboState(){
-  setMapSize(DEFAULTMAPSIZE);
-  entry = DEFAULTMAPSIZE*DEFAULTMAPSIZE-DEFAULTMAPSIZE+1;
-  index = x = y = -1;
-  facing = NORTH;
-  Serial.print("State Constructed");
+  setup(DEFAULTMAPSIZE);
 }
 
 RoboState::RoboState(int m){
+  setup(m);
+}
+
+void RoboState::setup(int m) {
   setMapSize(m);
   entry = m*m-m+1;
   index = x = y = -1;
   facing = NORTH;
+  #ifdef SERIAL_MODE
+  Serial.print("State Constructed");
+  #endif
 }
 
 RoboState::~RoboState(){}
@@ -34,20 +37,43 @@ int RoboState::step(){
   do {  
 	if        (facing == NORTH) {
       y--;
+	  #ifdef SERIAL_MODE
+	  Serial.print("y--");
+	  #endif
     } else if (facing == SOUTH) {
       y++;
+	  #ifdef SERIAL_MODE
+	  Serial.print("y++");
+	  #endif
 	} else if (facing == WEST) {
       x++;
+	  #ifdef SERIAL_MODE
+	  Serial.print("x++");
+	  #endif
 	} else if (facing == EAST) {
 	  x--;
+      #ifdef SERIAL_MODE
+	  Serial.print("x--");
+	  #endif
 	}
   } while(facingAdj());
     index = calIndex(x,y);
-	/* Serial.print("Current x ");
+	#ifdef SERIAL_MODE
+	Serial.println();
+	Serial.print("Current Facing: ");
+	switch (facing){
+      case EAST: Serial.println("East"); break;
+	  case NORTH: Serial.println("North"); break;
+	  case SOUTH: Serial.println("South"); break;
+	  case WEST: Serial.println("West"); break;
+	  default: Serial.println("Adjustment-failed");
+	}
+	Serial.print("Current x ");
 	Serial.print(x);
 	Serial.print(" || Current y ");
 	Serial.println(y);
-	 */return index;
+	#endif
+	return index;
 }
 
 void RoboState::turnRight() {

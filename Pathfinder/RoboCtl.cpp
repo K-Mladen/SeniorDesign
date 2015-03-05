@@ -10,10 +10,16 @@
 #include "DEFINES-TEST.h"
 #include "Arduino.h"
 
+#ifdef LCD_CONNECTED
 RoboCtl::RoboCtl()  : LiquidCrystal::LiquidCrystal(static_cast<uint8_t>(LCD_RS),static_cast<uint8_t>(LCD_EN),
 	                          static_cast<uint8_t>(LCD_D0),static_cast<uint8_t>(LCD_D1),static_cast<uint8_t>(LCD_D2),static_cast<uint8_t>(LCD_D3)) {
   RoboCtl::setup();
 }
+#else
+RoboCtl::RoboCtl() {
+  RoboCtl::setup();
+}
+#endif
 
 //RoboCtl::RoboCtl(noInit i) {}
 
@@ -23,11 +29,17 @@ RoboCtl::~RoboCtl() {}
 void RoboCtl::setup() {
   stepCount = 1;
   mode = SEARCH;
+  #ifdef SERIAL_MODE
   Serial.println("RoboCtl Setup");
+  #endif
+  #ifdef LCD_CONNECTED  
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
   LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
+  #endif
+  #ifdef SERIAL_MODE
   Serial.println("Done RoboCtl Setup");
+  #endif
 }
 
 void RoboCtl::setCourse() {
@@ -35,29 +47,45 @@ void RoboCtl::setCourse() {
   Serial.print("Mode "); Serial.println((mode == SEARCH)?"Search":"Nonsearch");
   if(mode == SEARCH) { 
     if(!Driver::isWallChk(LEFT)) { 
+      #ifdef LCD_CONNECTED
 	  LiquidCrystal::setCursor(8,1);
-	  Serial.println("left nowall");
       LiquidCrystal::print("    LEFT");
+	  #endif
+	  #ifdef SERIAL_MODE
+      Serial.println("left nowall");
+      #endif
 	  RoboCtl::turnLeft();
 	  RoboCtl::stepForth();
 	 // r = WEST;
 	  } else if (!Driver::isWallChk(FRONT)) {
+      #ifdef LCD_CONNECTED
 	  LiquidCrystal::setCursor(8,1);
-	  Serial.println("front nowall");
       LiquidCrystal::print(" FORWARD");
+	  #endif
+	  #ifdef SERIAL_MODE
+      Serial.println("front nowall");
+      #endif
 	  RoboCtl::stepForth();
 	  //r = NORTH;
 	  } else if (!Driver::isWallChk(RIGHT)) {
+      #ifdef LCD_CONNECTED
 	  LiquidCrystal::setCursor(8,1);
-	  Serial.println("right nowall");
       LiquidCrystal::print("   RIGHT");
+	  #endif
+	  #ifdef SERIAL_MODE
+      Serial.println("right nowall");
+      #endif
 	  RoboCtl::turnRight();
 	  RoboCtl::stepForth();
 	//  r = EAST;
 	  } else {
+      #ifdef LCD_CONNECTED
 	  LiquidCrystal::setCursor(8,1);
-	  Serial.println("allwalls");
       LiquidCrystal::print("    BACK");
+	  #endif
+	  #ifdef SERIAL_MODE
+      Serial.println("allwalls");
+      #endif
 	  RoboCtl::aboutFace();
 	  RoboCtl::stepForth();
 	//  r = SOUTH;
@@ -70,14 +98,17 @@ void RoboCtl::setCourse() {
 	//r = -1;
   }
   
+  #ifdef LCD_CONNECTED
   LiquidCrystal::setCursor(8,0);
   LiquidCrystal::print("SQUARE   ");
   LiquidCrystal::setCursor(15,0);
   LiquidCrystal::print(String(RoboState::getIndex()));
+  #endif
   
+  #ifdef SERIAL_MODE
   Serial.print("square ");
   Serial.println(RoboState::getIndex());
-  
+  #endif
   
   return; //RoboState::areWeBackYet();
 }
@@ -138,29 +169,37 @@ void RoboCtl::nextAction() {
   currentFacing = RoboState::getFacing();
   nextFacing = RoboCtl::getNextFacing();
   if(currentFacing == nextFacing){
-    LiquidCrystal::setCursor(8,1);
+    #ifdef LCD_CONNECTED
+	LiquidCrystal::setCursor(8,1);
     LiquidCrystal::print(" FORWARD");
+	#endif
     RoboCtl::stepForth();
   } else if((currentFacing == NORTH && nextFacing == EAST) ||
 			(currentFacing == EAST && nextFacing == SOUTH) ||
 			(currentFacing == SOUTH && nextFacing == WEST) ||
 			(currentFacing == WEST && nextFacing == NORTH) ){
-    LiquidCrystal::setCursor(8,1);
+    #ifdef LCD_CONNECTED
+	LiquidCrystal::setCursor(8,1);
     LiquidCrystal::print("   RIGHT");
+	#endif
     RoboCtl::turnRight();
   } else if((currentFacing == NORTH && nextFacing == WEST) ||
             (currentFacing == WEST && nextFacing == SOUTH) ||
 			(currentFacing == SOUTH && nextFacing == EAST) ||
 			(currentFacing == EAST && nextFacing == NORTH) ){
+	#ifdef LCD_CONNECTED
 	LiquidCrystal::setCursor(8,1);
     LiquidCrystal::print("    LEFT");		
+	#endif
 	RoboCtl::turnLeft();
   } else if((currentFacing == NORTH && nextFacing == SOUTH) ||
             (currentFacing == SOUTH && nextFacing == NORTH) ||
 			(currentFacing == EAST && nextFacing == WEST) ||
 			(currentFacing == WEST && nextFacing == EAST) ){
-    LiquidCrystal::setCursor(8,1);
+    #ifdef LCD_CONNECTED
+	LiquidCrystal::setCursor(8,1);
     LiquidCrystal::print("    BACK");
+	#endif
     RoboCtl::aboutFace();
   }
 }

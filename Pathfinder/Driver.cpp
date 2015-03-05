@@ -13,9 +13,13 @@
 //END of globals
 
 Driver::Driver(){
+  #ifdef SERIAL_MODE
   Serial.println("Constructing Driver");
+  #endif
   setup();
+  #ifdef SERIAL_MODE
   Serial.println("Driver Constructed");
+  #endif
 }
 
 Driver::Driver(noInit i) {}
@@ -233,23 +237,54 @@ void Driver::PID_Drive(){
 }
 
 #else
+	
+#ifndef TG
+test_globals tg;
+#define TG
+#endif
 
-Driver::Driver(){Serial.println("DRIVER-SETUP");}
-Driver::Driver(NoInit){Serial.println("DRIVER-SETUP-NOINIT");}
-Driver::~Driver(){Serial.println("DRIVER-DESTRUCT");}
-void Driver::setup(){Serial.println("\"Calibration\"");}
-int Driver::isCenteredChk(){}
+Driver::Driver(){
+  setup();
+  #ifdef SERIAL_MODE
+  Serial.println("DRIVER-SETUP");
+  #endif
+}
+/* Driver::Driver(NoInit i){
+  #ifdef SERIAL_MODE
+  Serial.println("DRIVER-SETUP-NOINIT");
+  #endif
+} */
+Driver::~Driver(){
+  #ifdef SERIAL_MODE
+  Serial.println("DRIVER-DESTRUCT");
+  #endif
+} 
+void Driver::setup(){
+  #ifdef SERIAL_MODE
+  Serial.println("\"Calibration\"");
+  #endif
+}
+int Driver::isCenteredChk(){return 1;}
 int Driver::isWallChk(int side){
+	
+	#ifdef SERIAL_MODE
 	Serial.print("Step: ");
-	Serial.println(tg.iter);
-	Serial.print("Checking side: ");
+	Serial.print(tg.iter);
+	Serial.print("  Checking side: ");
 	switch(side) {
 	  case 0: Serial.println("left"); break;
 	  case 1: Serial.println("front"); break;
 	  case 2: Serial.println("right"); break;
 	  default: Serial.println("error"); break;
     } 
-	if (TESTCASE[tg.iter] == side) return 0;
+	#endif
+	#ifndef TESTCASE
+	#define TESTMODE_ON
+	#include "DEFINES-TEST.h"
+	#endif
+	
+	int testarray[] = TESTCASE;
+	if (testarray[tg.iter] == side) return 0;
 	else return 1;
 }
 void Driver::turnLeft(){}

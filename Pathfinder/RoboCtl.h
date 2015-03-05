@@ -11,7 +11,11 @@
 #include "DEFINES.h"
 #include "DEFINES-TEST.h"
 
+#ifdef LCD_CONNECTED
 class RoboCtl: private RoboState, private CrPath, private Driver, private Comms, public LiquidCrystal { 
+#else
+class RoboCtl: private RoboState, private CrPath, private Driver, private Comms { 	
+#endif
   public:
     //Constructor and destructors
 	RoboCtl();

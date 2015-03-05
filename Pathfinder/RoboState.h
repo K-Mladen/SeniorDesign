@@ -10,7 +10,7 @@ class RoboState {
   RoboState(int m);
   ~RoboState();
   
-  //setup
+  void setup(int m);
   
   //control
   int step();

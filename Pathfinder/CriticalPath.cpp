@@ -19,7 +19,9 @@ CrPath::CrPath() {
     for (it = 0; it<MAXPATHSIZE;it++) {
     path[it] = 0; 
   }
+  #ifdef SERIAL_MODE
   Serial.print("CP Constructed");
+  #endif
 }
 
 CrPath::~CrPath(){}
