@@ -27,30 +27,36 @@ void RoboCtl::setup() {
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
   LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
+  Serial.println("Done RoboCtl Setup");
 }
 
 void RoboCtl::setCourse() {
   //int r;
-  if(mode == SEARCH) {
+  Serial.print("Mode "); Serial.println((mode == SEARCH)?"Search":"Nonsearch");
+  if(mode == SEARCH) { 
     if(!Driver::isWallChk(LEFT)) { 
 	  LiquidCrystal::setCursor(8,1);
+	  Serial.println("left nowall");
       LiquidCrystal::print("    LEFT");
 	  RoboCtl::turnLeft();
 	  RoboCtl::stepForth();
 	 // r = WEST;
 	  } else if (!Driver::isWallChk(FRONT)) {
 	  LiquidCrystal::setCursor(8,1);
+	  Serial.println("front nowall");
       LiquidCrystal::print(" FORWARD");
 	  RoboCtl::stepForth();
 	  //r = NORTH;
 	  } else if (!Driver::isWallChk(RIGHT)) {
 	  LiquidCrystal::setCursor(8,1);
+	  Serial.println("right nowall");
       LiquidCrystal::print("   RIGHT");
 	  RoboCtl::turnRight();
 	  RoboCtl::stepForth();
 	//  r = EAST;
 	  } else {
 	  LiquidCrystal::setCursor(8,1);
+	  Serial.println("allwalls");
       LiquidCrystal::print("    BACK");
 	  RoboCtl::aboutFace();
 	  RoboCtl::stepForth();
@@ -68,10 +74,10 @@ void RoboCtl::setCourse() {
   LiquidCrystal::print("SQUARE   ");
   LiquidCrystal::setCursor(15,0);
   LiquidCrystal::print(String(RoboState::getIndex()));
-  #ifdef TESTCASE
-    Serial.print("square ");
-	Serial.println(RoboState::getIndex());
-  #endif
+  
+  Serial.print("square ");
+  Serial.println(RoboState::getIndex());
+  
   
   return; //RoboState::areWeBackYet();
 }

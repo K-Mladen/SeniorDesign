@@ -13,7 +13,9 @@
 //END of globals
 
 Driver::Driver(){
+  Serial.println("Constructing Driver");
   setup();
+  Serial.println("Driver Constructed");
 }
 
 Driver::Driver(noInit i) {}

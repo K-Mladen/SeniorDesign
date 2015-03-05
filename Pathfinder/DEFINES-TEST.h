@@ -7,8 +7,6 @@ struct test_globals {
   }
 };
 
-test_globals tg;
-
 //Uncomment any of these that are appropriate
   #define NOROBOT
 
@@ -50,6 +48,7 @@ test_globals tg;
 	#define TESTCASE {_L_,_R_,_L_,_R_,_F_,_F_,_F_,_L_,_L_,_R_,_R_,_F_,_F_}
   #endif
 
+test_globals tg;
 
 #undef TESTMODE_ON //This precompiler code will only run once  
 #endif

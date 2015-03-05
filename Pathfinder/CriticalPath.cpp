@@ -9,6 +9,9 @@ there are no loops in the maze -- in other words, there is only one path from an
 
 #include "Defines.h"
 #include "CriticalPath.h"
+#include "Arduino.h"
+
+
 CrPath::CrPath() {
   int it;
   size = 0;
@@ -16,6 +19,7 @@ CrPath::CrPath() {
     for (it = 0; it<MAXPATHSIZE;it++) {
     path[it] = 0; 
   }
+  Serial.print("CP Constructed");
 }
 
 CrPath::~CrPath(){}

@@ -14,6 +14,7 @@ RoboState::RoboState(){
   entry = DEFAULTMAPSIZE*DEFAULTMAPSIZE-DEFAULTMAPSIZE+1;
   index = x = y = -1;
   facing = NORTH;
+  Serial.print("State Constructed");
 }
 
 RoboState::RoboState(int m){
