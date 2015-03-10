@@ -8,17 +8,28 @@
 //Chuck's Constants
 #define DATARATE 9600
 
-enum {NORTH,WEST,SOUTH,EAST};
-enum {LEFT=0,FRONT=1,RIGHT=2};
-//#define NORTH 0
-//#define SOUTH 2
-//#define WEST 1
-//#define EAST 3
+//enum {NORTH,WEST,SOUTH,EAST};
+//enum {LEFT=0,FRONT=1,RIGHT=2};
+#define NORTH 0
+#define SOUTH 2
+#define WEST 1
+#define EAST 3
+#define LEFT 0
+#define FRONT 1
+#define RIGHT 2
 
-enum {FORWARD, BACKWARD};
-enum {SEARCH,DESTROY,SPIN};
+//enum {FORWARD, BACKWARD};
+#define FORWARD 1
+#define BACKWARD 0
+//enum {SEARCH,DESTROY,SPIN};
+#define SEARCH 0
+#define DESTROY 1
+#define STOP 2
+
 //enum {HIGH = 1, LOW = 0};
-enum {FALSE = 0, TRUE = 1};
+//enum {FALSE = 0, TRUE = 1};
+#define FALSE 0
+#define TRUE 1
 #define LCD_COLS 16
 #define LCD_ROWS 2
 
@@ -44,7 +55,7 @@ enum {FALSE = 0, TRUE = 1};
 #define LCD_D2 6
 #define LCD_D3 7
 
-#define CAMERA_PULSE 20
+#define CAMERA_PULSE 10
 
 #define RC_0 30
 #define RC_1 31

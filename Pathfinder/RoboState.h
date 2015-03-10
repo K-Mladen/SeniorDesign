@@ -44,6 +44,7 @@ class RoboState {
 	//init
 	int firstSquare();
 	void setMapSize(int m);
+	void setup(int m);
 	
 };
 

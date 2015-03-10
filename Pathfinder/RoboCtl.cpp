@@ -27,9 +27,10 @@ void RoboCtl::setup() {
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
   LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
+  Driver::goStraight();
 }
 
-void RoboCtl::setCourse() {
+int RoboCtl::setCourse() {
   //int r;
   if(mode == SEARCH) {
     if(!Driver::isWallChk(LEFT)) { 
@@ -56,9 +57,14 @@ void RoboCtl::setCourse() {
 	  RoboCtl::stepForth();
 	//  r = SOUTH;
 	  }
-	  if (CrPath::getCompletionState()) mode = SPIN;
-  } else if (mode == SPIN){
-	  RoboCtl::aboutFace();
+	  if (CrPath::getCompletionState()) {
+		digitalWrite(LED_Done,LOW);
+	    if (RoboState::getMapSize()==5) {
+			mode = STOP;
+	    }
+	  }
+  } else if (mode == STOP){
+	  delay(1);
   } else {
     RoboCtl::nextAction();
 	//r = -1;
@@ -77,7 +83,10 @@ void RoboCtl::setCourse() {
 	case SOUTH: LiquidCrystal::print("SOUTH   "); break;
 	default: LiquidCrystal::print("Facing error");
   }
-  return; //RoboState::areWeBackYet();
+  
+  
+  
+  return mode; //RoboState::areWeBackYet();
 }
 
 void RoboCtl::toggleMode() {
@@ -100,8 +109,15 @@ void RoboCtl::turnLeft() {
 }
 
 void RoboCtl::stepForth() {
-  Driver::goStraight();
   RoboState::step();
+  CrPath::setNextStep(RoboState::getIndex());
+  if (RoboState::getIndex()){
+    Driver::goStraight();
+  } else {
+	RoboState::turnBack();
+	RoboState::step();
+	RoboState::turnBack();
+  }
   if(Driver::isWallChk(LEFT))
     Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
   if ( mode != SEARCH ) stepCount++;

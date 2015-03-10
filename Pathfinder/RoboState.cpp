@@ -10,16 +10,17 @@
 //-----------------------\\
 
 RoboState::RoboState(){
-  setMapSize(DEFAULTMAPSIZE);
-  entry = DEFAULTMAPSIZE*DEFAULTMAPSIZE-DEFAULTMAPSIZE+1;
-  index = x = y = -1;
-  facing = NORTH;
+  setup(DEFAULTMAPSIZE);
 }
 
 RoboState::RoboState(int m){
+  setup(m);
+}
+
+void RoboState::setup(int m){
   setMapSize(m);
   entry = m*m-m+1;
-  index = x = y = -1;
+  index = x = y = entry;
   facing = NORTH;
 }
 
