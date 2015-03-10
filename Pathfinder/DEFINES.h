@@ -23,7 +23,7 @@
 #define BACKWARD 0
 //enum {SEARCH,DESTROY,SPIN};
 #define SEARCH 0
-#define DESTROY 1
+#define SOLVE 1
 #define STOP 2
 
 //enum {HIGH = 1, LOW = 0};

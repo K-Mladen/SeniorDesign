@@ -26,12 +26,23 @@ void RoboCtl::setup() {
 
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
-  LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
+  switch(mode){
+	case SEARCH: LiquidCrystal::print("SEARCH  "); break;
+	case STOP:   LiquidCrystal::print("STOP    "); break;
+	case SOLVE:  LiquidCrystal::print("SOLVE   "); break;
+	default:     LiquidCrystal::print("MODE ERR"); break;
+  }
+  //LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
   Driver::goStraight();
 }
 
 int RoboCtl::setCourse() {
   //int r;
+  LiquidCrystal::setCursor(8,0);
+  LiquidCrystal::print("SQUARE   ");
+  LiquidCrystal::setCursor(14,0);
+  LiquidCrystal::print(String(RoboState::getIndex()));
+  
   if(mode == SEARCH) {
     if(!Driver::isWallChk(LEFT)) { 
 	  LiquidCrystal::setCursor(8,1);
@@ -70,10 +81,7 @@ int RoboCtl::setCourse() {
 	//r = -1;
   }
   
-  LiquidCrystal::setCursor(8,0);
-  LiquidCrystal::print("SQUARE   ");
-  LiquidCrystal::setCursor(14,0);
-  LiquidCrystal::print(String(RoboState::getIndex()));
+
   
   LiquidCrystal::setCursor(0,1);
   switch (RoboState::getFacing()) {
@@ -90,7 +98,7 @@ int RoboCtl::setCourse() {
 }
 
 void RoboCtl::toggleMode() {
-  mode=(mode!=SEARCH)?SEARCH:DESTROY;  
+  mode=(mode!=SEARCH)?SEARCH:SOLVE;  
 }
 
 
@@ -113,10 +121,6 @@ void RoboCtl::stepForth() {
   CrPath::setNextStep(RoboState::getIndex());
   if (RoboState::getIndex()){
     Driver::goStraight();
-  } else {
-	RoboState::turnBack();
-	RoboState::step();
-	RoboState::turnBack();
   }
   if(Driver::isWallChk(LEFT))
     Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
