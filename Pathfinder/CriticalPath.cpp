@@ -10,11 +10,11 @@ there are no loops in the maze -- in other words, there is only one path from an
 #include "Defines.h"
 #include "CriticalPath.h"
 
-void CrPath::CrPath(int m) {
+CrPath::CrPath(int m) {
 	setup(m);
 }
 
-void CrPath::CrPath() {
+CrPath::CrPath() {
 	setup(DEFAULTMAPSIZE);
 }
 

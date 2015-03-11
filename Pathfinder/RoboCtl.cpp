@@ -93,12 +93,6 @@ int RoboCtl::setCourse() {
 	//r = -1;
   }
   
-
-  
-
-  
-  
-  
   return mode; //RoboState::areWeBackYet();
 }
 
@@ -123,13 +117,21 @@ void RoboCtl::turnLeft() {
 
 void RoboCtl::stepForth() {
   RoboState::step();
-  CrPath::setNextStep(RoboState::getIndex());
-  if (RoboState::getIndex() != 0){
-    Driver::goStraight();
+  if (mode == SEARCH){
+    CrPath::setNextStep(RoboState::getIndex());
+    if (RoboState::getIndex() != 0){
+      Driver::goStraight();
+    } else {
+	  RoboState::turnBack();
+	  RoboState::step();
+	  RoboState::turnBack();
+    }
+    if(Driver::isWallChk(LEFT)){
+      Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
+    }
+  } else if (mode == SOLVE) {
+    stepCount++;
   }
-  if(Driver::isWallChk(LEFT))
-    Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
-  if ( mode != SEARCH ) stepCount++;
 }
 
 

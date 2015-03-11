@@ -17,7 +17,7 @@ class CrPath {
     CrPath(); //class should not be created without initializing
 	CrPath(int m);
     ~CrPath();
-	setup(int m);
+	void setup(int m);
 	
     //public access functions
     bool setNextStep(int i);
