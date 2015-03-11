@@ -20,9 +20,8 @@ RoboState::RoboState(int m){
 void RoboState::setup(int m){
   setMapSize(m);
   entry = m*m-m+1;
-  index = entry;
-  calX(index);
-  calY(index);
+  index = x = y = -1; 
+  firstSquare();
   facing = NORTH;
 }
 

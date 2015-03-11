@@ -36,7 +36,7 @@ void Driver::setup(){
 int Driver::isCenteredChk(){ 
   //aka readCellSensor
   qtrrc1.read(sensorValuesCell);
-/*  
+ /*
   for (unsigned char i = 0; i < NUM_SENSORSCELL; i++)
   {
     Serial.print("SensorValues");
@@ -45,6 +45,18 @@ int Driver::isCenteredChk(){
   }
   Serial.println();
   */
+  
+  /* if(sensorValuesCell[0] < 600 && sensorValuesCell[1] < 600 && linesensors[0] < 600 && linesensors[1] < 600 && linesensors[2] < 600 && linesensors[3] < 600 && linesensors[4] < 600 && linesensors[5] < 600)//if we are in the center of the cell, stop
+  {
+    
+  digitalWrite(rightMotordir, HIGH);
+  digitalWrite(rightMotorbrake, LOW);
+  analogWrite(rightMotorPWM, 150);
+  digitalWrite(leftMotordir, HIGH);
+  digitalWrite(leftMotorbrake, LOW);
+  analogWrite(leftMotorPWM, 150);
+  delay(500); 
+   */
   if(sensorValuesCell[0] > 800 && sensorValuesCell[1] > 800)//if we are in the center of the cell, stop
   {
     

@@ -83,5 +83,6 @@
 #define rechoPin 49
 
 #define LED_Done 13
+#define BUTTON 11
 
 #endif
