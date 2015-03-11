@@ -48,32 +48,44 @@ int RoboCtl::setCourse() {
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("    LEFT");
 	  RoboCtl::turnLeft();
-	  RoboCtl::stepForth();
+	  //RoboCtl::stepForth();
 	 // r = WEST;
-	  } else if (!Driver::isWallChk(FRONT)) {
+	} else if (!Driver::isWallChk(FRONT)) {
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print(" FORWARD");
-	  RoboCtl::stepForth();
+	  //RoboCtl::stepForth();
 	  //r = NORTH;
-	  } else if (!Driver::isWallChk(RIGHT)) {
+	} else if (!Driver::isWallChk(RIGHT)) {
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("   RIGHT");
 	  RoboCtl::turnRight();
-	  RoboCtl::stepForth();
+	  //RoboCtl::stepForth();
 	//  r = EAST;
-	  } else {
+	} else {
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("    BACK");
 	  RoboCtl::aboutFace();
-	  RoboCtl::stepForth();
+	  //RoboCtl::stepForth();
 	//  r = SOUTH;
+	}
+	  
+	LiquidCrystal::setCursor(0,1);
+    switch (RoboState::getFacing()) {
+      case NORTH: LiquidCrystal::print("NORTH   "); break;
+      case EAST: LiquidCrystal::print("EAST    "); break;
+      case WEST: LiquidCrystal::print("WEST    "); break;
+	  case SOUTH: LiquidCrystal::print("SOUTH   "); break;
+	  default: LiquidCrystal::print("Facing error");
+    }
+	  
+	RoboCtl::stepForth();
+	
+	if (CrPath::getCompletionState()) {
+	  digitalWrite(LED_Done,LOW);
+	  if (RoboState::getMapSize()==5) {
+	    mode = STOP;
 	  }
-	  if (CrPath::getCompletionState()) {
-		digitalWrite(LED_Done,LOW);
-	    if (RoboState::getMapSize()==5) {
-			mode = STOP;
-	    }
-	  }
+	}
   } else if (mode == STOP){
 	  delay(1);
   } else {
@@ -83,14 +95,7 @@ int RoboCtl::setCourse() {
   
 
   
-  LiquidCrystal::setCursor(0,1);
-  switch (RoboState::getFacing()) {
-	case NORTH: LiquidCrystal::print("NORTH   "); break;
-	case EAST: LiquidCrystal::print("EAST    "); break;
-	case WEST: LiquidCrystal::print("WEST    "); break;
-	case SOUTH: LiquidCrystal::print("SOUTH   "); break;
-	default: LiquidCrystal::print("Facing error");
-  }
+
   
   
   
@@ -119,7 +124,7 @@ void RoboCtl::turnLeft() {
 void RoboCtl::stepForth() {
   RoboState::step();
   CrPath::setNextStep(RoboState::getIndex());
-  if (RoboState::getIndex()){
+  if (RoboState::getIndex() != 0){
     Driver::goStraight();
   }
   if(Driver::isWallChk(LEFT))

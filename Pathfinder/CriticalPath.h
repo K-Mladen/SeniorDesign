@@ -15,7 +15,10 @@ class CrPath {
   public:
     //constructors, destructors
     CrPath(); //class should not be created without initializing
+	CrPath(int m);
     ~CrPath();
+	setup(int m);
+	
     //public access functions
     bool setNextStep(int i);
     int getNextStep(int i);
@@ -25,6 +28,7 @@ class CrPath {
   private:
     int size;
     int cpDone;
+	int endSquare;
     int path[MAXPATHSIZE];
     
     int push_back(int i);

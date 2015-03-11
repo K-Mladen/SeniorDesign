@@ -31,7 +31,7 @@ int RoboState::step(){
     return firstSquare();
   }
   
-  //do {  
+  do {  
 	if        (facing == NORTH) {
       y--;
     } else if (facing == SOUTH) {
@@ -41,7 +41,7 @@ int RoboState::step(){
 	} else if (facing == EAST) {
 	  x--;
 	}
-  //} while(facingAdj());
+  } while(facingAdj());
     index = calIndex(x,y);
 	/* Serial.print("Current x ");
 	Serial.print(x);
