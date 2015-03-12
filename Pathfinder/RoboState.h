@@ -29,7 +29,7 @@ class RoboState {
   int getFacing();
   int getMapSize();
   int areWeBackYet();
-  
+  void reset();
   
   private:
     int n,entry; //grid descriptors

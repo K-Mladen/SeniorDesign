@@ -27,6 +27,10 @@ void RoboState::setup(int m){
 
 RoboState::~RoboState(){}
 
+void RoboState::reset(){
+  firstSquare();	
+}
+
 int RoboState::step(){
   if (index < 0){
     return firstSquare();
