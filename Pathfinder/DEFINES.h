@@ -26,7 +26,6 @@
 #define SOLVE 1
 #define STOP 2
 #define WAIT 3
-#define ERROR -1
 
 //enum {HIGH = 1, LOW = 0};
 //enum {FALSE = 0, TRUE = 1};

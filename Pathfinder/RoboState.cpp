@@ -141,10 +141,6 @@ int RoboState::getFacing() {
   return facing;
 }
 
-int RoboState::setFacing(int fac) {
-	facing = fac;
-}
-
 int RoboState::getMapSize(){
   return n;
 }
