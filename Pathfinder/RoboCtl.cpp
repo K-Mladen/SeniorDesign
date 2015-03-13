@@ -192,7 +192,14 @@ void RoboCtl::nextAction() {
 	case EAST:  LiquidCrystal::print("EAST    "); break;
 	default:    LiquidCrystal::print("fac Err "); break;
   }
-  LiquidCrystal::print(String(currentFacing));
+  LiquidCrystal::setCursor(0,1);
+  switch(currentFacing){
+	case NORTH: LiquidCrystal::print("NORTH   "); break;
+	case WEST:  LiquidCrystal::print("WEST    "); break;
+	case SOUTH: LiquidCrystal::print("SOUTH   "); break;
+	case EAST:  LiquidCrystal::print("EAST    "); break;
+	default:    LiquidCrystal::print("fac Err "); break;
+  }
   
   if(currentFacing == nextFacing){
     LiquidCrystal::setCursor(8,1);
