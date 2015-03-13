@@ -6,10 +6,12 @@ the calling code has an indexed grid on the maze such that any walls are on grid
 there are no loops in the maze -- in other words, there is only one path from any point a to point b
 */
 
+#include "DEFINES.H"
+
 #ifndef CRITICALPATH
 #define CRITICALPATH
 
-#include "DEFINES.H"
+
 
 class CrPath {
   public:

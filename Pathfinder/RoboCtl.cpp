@@ -150,6 +150,7 @@ void RoboCtl::stepForth() {
     }
   } else if (mode == SOLVE) {
     stepCount++;
+	Driver::goStraight();
   }
 }
 
@@ -161,10 +162,12 @@ void RoboCtl::aboutFace() {
 
 int RoboCtl::getNextFacing()
 {
+  currentIndex = RoboState::getIndex();
   nextIndex = CrPath::getNextStep(stepCount);
-  currentNS = RoboState::getY();
+  
+  currentNS = RoboState::getY(currentIndex);
   nextNS = RoboState::getY(nextIndex);
-  currentEW = RoboState::getX();
+  currentEW = RoboState::getX(currentIndex);
   nextEW = RoboState::getX(nextIndex);;
   
   NS = (currentNS != nextNS);
@@ -181,6 +184,16 @@ int RoboCtl::getNextFacing()
 void RoboCtl::nextAction() {
   currentFacing = RoboState::getFacing();
   nextFacing = RoboCtl::getNextFacing();
+  LiquidCrystal::setCursor(0,0);
+  switch(nextFacing){
+	case NORTH: LiquidCrystal::print("NORTH   "); break;
+	case WEST:  LiquidCrystal::print("WEST    "); break;
+	case SOUTH: LiquidCrystal::print("SOUTH   "); break;
+	case EAST:  LiquidCrystal::print("EAST    "); break;
+	default:    LiquidCrystal::print("fac Err "); break;
+  }
+  LiquidCrystal::print(String(currentFacing));
+  
   if(currentFacing == nextFacing){
     LiquidCrystal::setCursor(8,1);
     LiquidCrystal::print(" FORWARD");

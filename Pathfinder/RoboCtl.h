@@ -11,7 +11,7 @@
 #include "DEFINES.h"
 #include "DEFINES-TEST.h"
 
-class RoboCtl: private RoboState, private CrPath, private Driver, private Comms, public LiquidCrystal { 
+class RoboCtl: private RoboState, public CrPath, private Driver, private Comms, public LiquidCrystal { 
   public:
     //Constructor and destructors
 	RoboCtl();
@@ -33,6 +33,7 @@ class RoboCtl: private RoboState, private CrPath, private Driver, private Comms,
     int mode;
 	int currentFacing;
 	int nextFacing;
+	int currentIndex;
 
 	//Movement Controls
 	void turnLeft();
