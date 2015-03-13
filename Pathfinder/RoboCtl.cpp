@@ -79,15 +79,6 @@ int RoboCtl::setCourse() {
 	//  r = SOUTH;
 	}
 	  
-	LiquidCrystal::setCursor(0,1);
-    switch (RoboState::getFacing()) {
-      case NORTH: LiquidCrystal::print("NORTH   "); break;
-      case EAST: LiquidCrystal::print("EAST    "); break;
-      case WEST: LiquidCrystal::print("WEST    "); break;
-	  case SOUTH: LiquidCrystal::print("SOUTH   "); break;
-	  default: LiquidCrystal::print("Facing error");
-    }
-	  
 	RoboCtl::stepForth();
 	
 	if (CrPath::getCompletionState()) {
@@ -100,10 +91,78 @@ int RoboCtl::setCourse() {
   } else if (mode == STOP) {
 	  RoboCtl::toggleMode();
   } else if (mode == SOLVE) {
-    RoboCtl::nextAction();
+    currentFacing = RoboState::getFacing();
+	//nextFacing = RoboCtl::getNextFacing();
+	currentIndex = RoboState::getIndex();
+	nextIndex = CrPath::getNextStep(stepCount);
+	
+	currentNS = RoboState::getY(currentIndex);
+	nextNS = RoboState::getY(nextIndex);
+	currentEW = RoboState::getX(currentIndex);
+	nextEW = RoboState::getX(nextIndex);;
+	
+	
+	
+	//if (NS == EW) ErrCalls::Err("RoboCtl::getNextFacing -- Diagonal or No movement","STOP");
+	if (currentNS != nextNS && nextNS < currentNS) nextFacing = NORTH;
+	if (currentNS != nextNS && nextNS > currentNS) nextFacing = SOUTH;
+	if (currentEW != nextEW && nextEW < currentEW) nextFacing = EAST;
+	if (currentEW != nextEW && nextEW > currentEW) nextFacing = WEST;
+	if ((currentEW != nextEW) == (currentNS != nextNS)) mode = ERROR;
 	//r = -1;
+	RoboState::setFacing(nextFacing);
   }
+  	LiquidCrystal::setCursor(0,1);
+    switch (RoboState::getFacing()) {
+      case NORTH: LiquidCrystal::print("NORTH   "); break;
+      case EAST: LiquidCrystal::print("EAST    "); break;
+      case WEST: LiquidCrystal::print("WEST    "); break;
+	  case SOUTH: LiquidCrystal::print("SOUTH   "); break;
+	  default: LiquidCrystal::print("Facing error");
+    }
+	  
+	
+	  RoboState::setFacing(nextFacing);
   
+  { //LCD Code
+  LiquidCrystal::setCursor(0,0);
+  switch(nextFacing){
+	case NORTH: LiquidCrystal::print("NORTH   "); break;
+	case WEST:  LiquidCrystal::print("WEST    "); break;
+	case SOUTH: LiquidCrystal::print("SOUTH   "); break;
+	case EAST:  LiquidCrystal::print("EAST    "); break;
+	default:    LiquidCrystal::print("fac Err "); break;
+  }
+  LiquidCrystal::print(String(currentFacing));
+  
+  if(currentFacing == nextFacing){
+    LiquidCrystal::setCursor(8,1);
+    LiquidCrystal::print(" FORWARD");
+  } else if((currentFacing == NORTH && nextFacing == EAST) ||
+			(currentFacing == EAST && nextFacing == SOUTH) ||
+			(currentFacing == SOUTH && nextFacing == WEST) ||
+			(currentFacing == WEST && nextFacing == NORTH) ){
+    LiquidCrystal::setCursor(8,1);
+    LiquidCrystal::print("   RIGHT");
+    RoboCtl::turnRight();
+  } else if((currentFacing == NORTH && nextFacing == WEST) ||
+            (currentFacing == WEST && nextFacing == SOUTH) ||
+			(currentFacing == SOUTH && nextFacing == EAST) ||
+			(currentFacing == EAST && nextFacing == NORTH) ){
+	LiquidCrystal::setCursor(8,1);
+    LiquidCrystal::print("    LEFT");		
+	RoboCtl::turnLeft();
+  } else if((currentFacing == NORTH && nextFacing == SOUTH) ||
+            (currentFacing == SOUTH && nextFacing == NORTH) ||
+			(currentFacing == EAST && nextFacing == WEST) ||
+			(currentFacing == WEST && nextFacing == EAST) ){
+    LiquidCrystal::setCursor(8,1);
+    LiquidCrystal::print("    BACK");
+    RoboCtl::aboutFace();
+  }
+  }
+  RoboCtl::stepForth();
+
   return mode; //RoboState::areWeBackYet();
 }
 
@@ -112,7 +171,7 @@ void RoboCtl::toggleMode() {
 	  switch(mode) {
 	    case STOP: mode = SOLVE; break;
 		case WAIT: mode = SEARCH; break;
-		default: mode = STOP;
+		default: mode = ERROR;
 	  }
   } else {
 	  delay(50);
@@ -160,68 +219,6 @@ void RoboCtl::aboutFace() {
   RoboCtl::turnLeft();
 }
 
-int RoboCtl::getNextFacing()
-{
-  currentIndex = RoboState::getIndex();
-  nextIndex = CrPath::getNextStep(stepCount);
-  
-  currentNS = RoboState::getY(currentIndex);
-  nextNS = RoboState::getY(nextIndex);
-  currentEW = RoboState::getX(currentIndex);
-  nextEW = RoboState::getX(nextIndex);;
-  
-  NS = (currentNS != nextNS);
-  EW = (currentEW != nextEW);
-  //if (NS == EW) ErrCalls::Err("RoboCtl::getNextFacing -- Diagonal or No movement","STOP");
-  if (NS && nextNS < currentNS) return NORTH;
-  if (NS && nextNS > currentNS) return SOUTH;
-  if (EW && nextEW < currentEW) return EAST;
-  if (EW && nextEW > currentEW) return WEST;
-  //this section should never be reached
-  //ErrCalls::Err("RoboCtl::getNextFacing -- Did not return properly","STOP");
-}
-
-void RoboCtl::nextAction() {
-  currentFacing = RoboState::getFacing();
-  nextFacing = RoboCtl::getNextFacing();
-  LiquidCrystal::setCursor(0,0);
-  switch(nextFacing){
-	case NORTH: LiquidCrystal::print("NORTH   "); break;
-	case WEST:  LiquidCrystal::print("WEST    "); break;
-	case SOUTH: LiquidCrystal::print("SOUTH   "); break;
-	case EAST:  LiquidCrystal::print("EAST    "); break;
-	default:    LiquidCrystal::print("fac Err "); break;
-  }
-  LiquidCrystal::print(String(currentFacing));
-  
-  if(currentFacing == nextFacing){
-    LiquidCrystal::setCursor(8,1);
-    LiquidCrystal::print(" FORWARD");
-  } else if((currentFacing == NORTH && nextFacing == EAST) ||
-			(currentFacing == EAST && nextFacing == SOUTH) ||
-			(currentFacing == SOUTH && nextFacing == WEST) ||
-			(currentFacing == WEST && nextFacing == NORTH) ){
-    LiquidCrystal::setCursor(8,1);
-    LiquidCrystal::print("   RIGHT");
-    RoboCtl::turnRight();
-  } else if((currentFacing == NORTH && nextFacing == WEST) ||
-            (currentFacing == WEST && nextFacing == SOUTH) ||
-			(currentFacing == SOUTH && nextFacing == EAST) ||
-			(currentFacing == EAST && nextFacing == NORTH) ){
-	LiquidCrystal::setCursor(8,1);
-    LiquidCrystal::print("    LEFT");		
-	RoboCtl::turnLeft();
-  } else if((currentFacing == NORTH && nextFacing == SOUTH) ||
-            (currentFacing == SOUTH && nextFacing == NORTH) ||
-			(currentFacing == EAST && nextFacing == WEST) ||
-			(currentFacing == WEST && nextFacing == EAST) ){
-    LiquidCrystal::setCursor(8,1);
-    LiquidCrystal::print("    BACK");
-    RoboCtl::aboutFace();
-  }
-  RoboCtl::stepForth();
-}
-
 int RoboCtl::getMapIndex(int i) {
   //implements a lookup-table based search to get map's index
   // 									from internal index
@@ -241,3 +238,6 @@ int RoboCtl::getMapIndex(int i) {
   //}
 }
 
+int RoboCtl::getMode(){
+  return mode;
+}
