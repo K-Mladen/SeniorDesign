@@ -22,6 +22,7 @@
 #define FORWARD 1
 #define BACKWARD 0
 //enum {SEARCH,DESTROY,SPIN};
+#define ERROR -1
 #define SEARCH 0
 #define SOLVE 1
 #define STOP 2

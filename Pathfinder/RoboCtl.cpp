@@ -43,7 +43,7 @@ int RoboCtl::setCourse() {
   switch(mode){
 	case WAIT:   LiquidCrystal::print("WAIT    "); break;
 	case SEARCH: LiquidCrystal::print("SEARCH  "); break;
-	case STOP:   LiquidCrystal::print("STOPSTOP    "); break;
+	case STOP:   LiquidCrystal::print("STOP    "); break;
 	case SOLVE:  LiquidCrystal::print("SOLVE   "); break;
 	default:     LiquidCrystal::print("MODE ERR"); break;
   }
@@ -112,7 +112,7 @@ void RoboCtl::toggleMode() {
 	  switch(mode) {
 	    case STOP: mode = SOLVE; break;
 		case WAIT: mode = SEARCH; break;
-		default: mode = STOP;
+		default: mode = ERROR;
 	  }
   } else {
 	  delay(50);

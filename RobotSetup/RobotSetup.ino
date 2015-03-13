@@ -28,24 +28,22 @@ void setup(){
   pinMode(leftMotorPWM, OUTPUT);
   pinMode(LED_Done,OUTPUT);
   pinMode(CAMERA_PULSE,OUTPUT);
-  
+  pinMode(BUTTON,INPUT_PULLUP);
   
   
   Serial.print("Beginning calibration");
   RoboCtl torro;
- 
-  //torro.setup();  
   
-  Serial.println(" - - Starting Course");
+  digitalWrite(LED_Done,HIGH);
+  
+  //Serial.println(" - - Starting Course");
   while(1){
 
     torro.setCourse();
-  };
-  Serial.print("Toggle");
-  torro.toggleMode();
-  while(1) {
-   torro.setCourse();
-   delay(100);
+    
+//    if(torro.getMode() == STOP || torro.getMode() == WAIT){
+//      torro.toggleMode();
+//    }
   } 
 }
 
