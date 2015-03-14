@@ -193,8 +193,13 @@ void RoboCtl::stepForth() {
       Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
     }
   } else if (mode == SOLVE) {
+	if (currentIndex != RoboState::getMapSize()) {
     stepCount++;
 	Driver::goStraight();
+	}
+	else {
+	  mode = DONE;
+	}
   }
 }
 
@@ -256,3 +261,6 @@ int RoboCtl::getMapIndex(int i) {
   //}
 }
 
+int RoboCtl::getMode() {
+  return mode;
+}

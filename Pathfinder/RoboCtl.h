@@ -27,6 +27,7 @@ class RoboCtl: private RoboState, public CrPath, private Driver, private Comms, 
 	void nextAction();
 	void toggleMode();
     void stepForth();
+	int getMode();
 	
   private:
 	
