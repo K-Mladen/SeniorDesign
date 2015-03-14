@@ -217,10 +217,12 @@ int RoboCtl::getNextFacing()
   NS = (currentNS != nextNS);
   EW = (currentEW != nextEW);
   //if (NS == EW) ErrCalls::Err("RoboCtl::getNextFacing -- Diagonal or No movement","STOP");
-  if (NS && nextNS < currentNS) return NORTH;
-  if (NS && nextNS > currentNS) return SOUTH;
-  if (EW && nextEW < currentEW) return EAST;
-  if (EW && nextEW > currentEW) return WEST;
+  if (!EW && nextNS < currentNS) return NORTH;
+  else if (!EW && nextNS > currentNS) return SOUTH;
+  else if (!NS && nextEW < currentEW) return EAST;
+  else if (!NS && nextEW > currentEW) return WEST;
+  else mode = ERROR;
+  return -1;
   //this section should never be reached
   //ErrCalls::Err("RoboCtl::getNextFacing -- Did not return properly","STOP");
 }
