@@ -23,11 +23,12 @@ class RoboCtl: private RoboState, public CrPath, private Driver, private Comms, 
 
 	 
 	//Decision Making
-	int setCourse();
-	void nextAction();
+	//int setCourse();
+	int nextAction();
 	void toggleMode();
     void stepForth();
 	int getMode();
+	void stop();
 	
   private:
 	

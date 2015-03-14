@@ -29,6 +29,7 @@ RoboState::~RoboState(){}
 
 void RoboState::reset(){
   firstSquare();	
+  facing = NORTH;
 }
 
 int RoboState::step(){

@@ -87,5 +87,7 @@
 
 #define LED_Done 13
 #define BUTTON 11
+#define SIZE6 22
+#define SIZE7 23
 
 #endif

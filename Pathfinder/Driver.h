@@ -45,6 +45,7 @@ class Driver {
   void turnLeft();
   void turnRight();
   void goStraight();
+  void stop();
   
   private:
   QTRSensorsRC qtrrc, qtrrc1;

@@ -37,7 +37,7 @@ void RoboCtl::setup() {
   Driver::goStraight();
 }
 
-int RoboCtl::setCourse() {
+int RoboCtl::nextAction() {
   //int r;
   LiquidCrystal::setCursor(0,0);
   switch(mode){
@@ -102,6 +102,10 @@ int RoboCtl::setCourse() {
   } else if (mode == SOLVE) {
     currentFacing = RoboState::getFacing();
     nextFacing = RoboCtl::getNextFacing();
+	if (nextFacing == -1) {
+      stepCount++;
+	  return mode;
+    }
     LiquidCrystal::setCursor(0,0);
     switch(nextFacing){
 	  case NORTH: LiquidCrystal::print("NORTH   "); break;
@@ -213,6 +217,8 @@ int RoboCtl::getNextFacing()
 {
   currentIndex = RoboState::getIndex();
   nextIndex = CrPath::getNextStep(stepCount);
+  if (currentIndex == nextIndex) return -1;
+
   LiquidCrystal::setCursor(8,0);
   LiquidCrystal::print("        ");
   LiquidCrystal::setCursor(8,0);
@@ -238,8 +244,8 @@ int RoboCtl::getNextFacing()
   //ErrCalls::Err("RoboCtl::getNextFacing -- Did not return properly","STOP");
 }
 
-void RoboCtl::nextAction() {
-  
+void RoboCtl::stop(){
+	Driver::stop();
 }
 
 int RoboCtl::getMapIndex(int i) {

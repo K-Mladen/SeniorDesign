@@ -13,6 +13,7 @@
 void setup(){
    
   Serial.begin(9600);
+  int it;
   
   pinMode(ftrigPin, OUTPUT);
   pinMode(fechoPin, INPUT);
@@ -29,6 +30,8 @@ void setup(){
   pinMode(LED_Done,OUTPUT);
   pinMode(CAMERA_PULSE,OUTPUT);
   pinMode(BUTTON,INPUT_PULLUP);
+  pinMode(SIZE6, INPUT);
+  pinMode(SIZE7, INPUT);
   
   
   Serial.print("Beginning calibration");
@@ -37,18 +40,20 @@ void setup(){
   digitalWrite(LED_Done,HIGH);
   
   //Serial.println(" - - Starting Course");
-  while(1){
+  while(torro.getMode() != DONE){
 
-    torro.setCourse();
-    
-//    if(torro.getMode() == STOP || torro.getMode() == WAIT){
-//      torro.toggleMode();
+    torro.nextAction();
+//    for(it = 0; it <50; it++){
+//      Serial.print(String(torro.getNextStep(it)));
+//      Serial.print(", ");
 //    }
+//    Serial.println(";");
   } 
+  torro.stop();
 }
 
 void loop(){
-  //RoboCtl torro;
+  //RoboCtl tor ro;
 //torro.setCourse();
   
 }

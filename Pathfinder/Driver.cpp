@@ -240,3 +240,12 @@ void Driver::PID_Drive(){
   digitalWrite(leftMotorbrake, LOW);
   analogWrite(leftMotorPWM, leftMotorSpeed); 
 }
+
+void Driver::stop(){
+	digitalWrite(rightMotordir, HIGH);
+	digitalWrite(leftMotordir, HIGH);
+    digitalWrite(rightMotorbrake, LOW);
+	digitalWrite(leftMotorbrake, LOW);
+    analogWrite(rightMotorPWM, rightMotorSpeed);
+	analogWrite(leftMotorPWM, rightMotorSpeed);
+}
