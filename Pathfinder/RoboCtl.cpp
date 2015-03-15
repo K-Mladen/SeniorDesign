@@ -15,6 +15,12 @@ RoboCtl::RoboCtl()  : LiquidCrystal::LiquidCrystal(static_cast<uint8_t>(LCD_RS),
   RoboCtl::setup();
 }
 
+RoboCtl::RoboCtl(int m)  : LiquidCrystal::LiquidCrystal(static_cast<uint8_t>(LCD_RS),static_cast<uint8_t>(LCD_EN),
+	                          static_cast<uint8_t>(LCD_D0),static_cast<uint8_t>(LCD_D1),static_cast<uint8_t>(LCD_D2),static_cast<uint8_t>(LCD_D3)),
+						   RoboState::RoboState(m), CrPath::CrPath(m), Driver::Driver(), Comms::Comms() {
+  RoboCtl::setup();
+}
+
 //RoboCtl::RoboCtl(noInit i) {}
 
 RoboCtl::~RoboCtl() {}
@@ -22,15 +28,18 @@ RoboCtl::~RoboCtl() {}
 
 void RoboCtl::setup() {
   stepCount = 0;
-  mode = WAIT;
+  passedGo = 0;
+  mode = READY;
 
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
   switch(mode){
-	case WAIT:   LiquidCrystal::print("WAIT    "); break;
+	case READY:   LiquidCrystal::print("READY  "); break;
 	case SEARCH: LiquidCrystal::print("SEARCH  "); break;
 	case STOP:   LiquidCrystal::print("STOP    "); break;
 	case SOLVE:  LiquidCrystal::print("SOLVE   "); break;
+	case DONE:   LiquidCrystal::print("DONE    "); break;
+	case RETURN: LiquidCrystal::print("RETURN  "); break;
 	default:     LiquidCrystal::print("MODE ERR"); break;
   }
   //LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
@@ -41,19 +50,21 @@ int RoboCtl::nextAction() {
   //int r;
   LiquidCrystal::setCursor(0,0);
   switch(mode){
-	case WAIT:   LiquidCrystal::print("WAIT    "); break;
+	case READY:   LiquidCrystal::print("READY  "); break;
 	case SEARCH: LiquidCrystal::print("SEARCH  "); break;
 	case STOP:   LiquidCrystal::print("STOP    "); break;
 	case SOLVE:  LiquidCrystal::print("SOLVE   "); break;
+	case DONE:   LiquidCrystal::print("DONE    "); break;
+	case RETURN: LiquidCrystal::print("RETURN  "); break;
 	default:     LiquidCrystal::print("MODE ERR"); break;
   }
   LiquidCrystal::setCursor(8,0);
   LiquidCrystal::print("SQUARE   ");
   LiquidCrystal::setCursor(14,0);
   LiquidCrystal::print(String(RoboState::getIndex()));
-  if (mode == WAIT) {
+  if (mode == READY) {
 	  RoboCtl::toggleMode();
-  } else if(mode == SEARCH) {
+  } else if(mode == SEARCH || mode == RETURN) {
     if(!Driver::isWallChk(LEFT)) { 
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("    LEFT");
@@ -90,11 +101,21 @@ int RoboCtl::nextAction() {
 	  
 	RoboCtl::stepForth();
 	
-	if (CrPath::getCompletionState()) {
+	if (CrPath::getCompletionState() && mode == SEARCH) {
 	  digitalWrite(LED_Done,LOW);
 	  if (RoboState::getMapSize()==5) {
 		RoboState::reset();
 	    mode = STOP;
+	  } else {
+		mode = RETURN;
+	  }
+	}
+	
+	if (mode == RETURN && CrPath::getNextStep(passedGo) == RoboState::getIndex()) {
+	  if(passedGo) {
+		mode = STOP;
+	  } else {
+	    passedGo = 1;
 	  }
 	}
   } else if (mode == STOP) {
@@ -159,7 +180,7 @@ void RoboCtl::toggleMode() {
   if(!digitalRead(BUTTON)) {
 	  switch(mode) {
 	    case STOP: mode = SOLVE; break;
-		case WAIT: mode = SEARCH; break;
+		case READY: mode = SEARCH; break;
 		default: mode = ERROR;
 	  }
   } else {
@@ -200,10 +221,14 @@ void RoboCtl::stepForth() {
 	if (currentIndex != RoboState::getMapSize()) {
     stepCount++;
 	Driver::goStraight();
-	}
-	else {
+	} else {
 	  mode = DONE;
 	}
+  }	else if (mode == RETURN) {
+    Driver::goStraight();
+    if(Driver::isWallChk(LEFT)){
+      Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
+    }
   }
 }
 
@@ -251,16 +276,16 @@ void RoboCtl::stop(){
 int RoboCtl::getMapIndex(int i) {
   //implements a lookup-table based search to get map's index
   // 									from internal index
-  const int index7x7[49]={7,6,5,4,3,2,1,14,13,12,11,10,9,8,21,20,19,18,17,16,15,28,27,26,25,24,23,22,35,34,33,32,31,30,29,42,41,40,39,38,37,36,49,48,47,46,45,44,43}; //= //needs setup
-  //const int index6x6[36]; //= //needs setup
+  const int index7x7[49] = {7,6,5,4,3,2,1,14,13,12,11,10,9,8,21,20,19,18,17,16,15,28,27,26,25,24,23,22,35,34,33,32,31,30,29,42,41,40,39,38,37,36,49,48,47,46,45,44,43};
+  const int index6x6[36] = {7,6,5,4,3,2,14,13,12,11,10,9,21,20,19,18,17,16,28,27,26,25,24,23,35,34,33,32,31,30,49,48,47,46,45,44}; //= //needs setup
   //const int index5x5[25]; //= //needs setup
   int mapSize = RoboState::getMapSize();
   
-  //if(mapSize==7) {
+  if(mapSize==7) {
     return index7x7[i];
-  //} else if (mapSize == 6) {
-    //return index6x6[i];
-  //} else if (mapSize == 5) {
+  } else if (mapSize == 6) {
+    return index6x6[i];
+  }// else if (mapSize == 5) {
     //return index5x5[i];
   //} else {
     //return -1;

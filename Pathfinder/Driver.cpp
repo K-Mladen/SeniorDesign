@@ -242,10 +242,10 @@ void Driver::PID_Drive(){
 }
 
 void Driver::stop(){
-	digitalWrite(rightMotordir, HIGH);
-	digitalWrite(leftMotordir, HIGH);
+    analogWrite(rightMotorPWM, 0);
+    analogWrite(leftMotorPWM, 0);    
+    digitalWrite(rightMotordir, LOW);
     digitalWrite(rightMotorbrake, LOW);
-	digitalWrite(leftMotorbrake, LOW);
-    analogWrite(rightMotorPWM, rightMotorSpeed);
-	analogWrite(leftMotorPWM, rightMotorSpeed);
+    digitalWrite(leftMotordir, HIGH);
+    digitalWrite(leftMotorbrake, LOW);
 }

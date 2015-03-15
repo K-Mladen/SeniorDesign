@@ -16,7 +16,7 @@ class RoboCtl: private RoboState, public CrPath, private Driver, private Comms, 
     //Constructor and destructors
 	RoboCtl();
 	//RoboCtl(noInit i) : LiquidCrystal(1,LCD_RS,255,LCD_EN,LCD_D0,LCD_D1,LCD_D2,LCD_D3,0,0,0,0);
-
+	RoboCtl(int m);
 	~RoboCtl();
 	 
     void setup();
@@ -58,6 +58,7 @@ class RoboCtl: private RoboState, public CrPath, private Driver, private Comms, 
   
     int NS;
     int EW;
+	int passedGo;
 };
 
 #endif ROBOCTL

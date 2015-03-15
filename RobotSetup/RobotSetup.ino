@@ -13,7 +13,7 @@
 void setup(){
    
   Serial.begin(9600);
-  int it;
+  int m=5;
   
   pinMode(ftrigPin, OUTPUT);
   pinMode(fechoPin, INPUT);
@@ -33,9 +33,11 @@ void setup(){
   pinMode(SIZE6, INPUT);
   pinMode(SIZE7, INPUT);
   
-  
+  if (digitalRead(SIZE6)) m = 6;
+  if (digitalRead(SIZE7)) m = 7;
+  m = 7;
   Serial.print("Beginning calibration");
-  RoboCtl torro;
+  RoboCtl torro(m);
   
   digitalWrite(LED_Done,HIGH);
   

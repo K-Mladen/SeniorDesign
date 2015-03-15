@@ -26,8 +26,9 @@
 #define SEARCH 0
 #define SOLVE 1
 #define STOP 2
-#define WAIT 3
+#define READY 3
 #define DONE 4
+#define RETURN 5
 
 //enum {HIGH = 1, LOW = 0};
 //enum {FALSE = 0, TRUE = 1};
