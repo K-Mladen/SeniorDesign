@@ -194,7 +194,7 @@ void RoboCtl::turnRight() {
   RoboState::turnRight();
   if (mode == SEARCH && RoboState::getMapSize() > 5) {
     if(Driver::isWallChk(LEFT)) {
-	  Driver::stop();
+	  RoboCtl::stop();
       Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
 	}
   }
@@ -205,7 +205,7 @@ void RoboCtl::turnLeft() {
   RoboState::turnLeft();
   if (mode == SEARCH && RoboState::getMapSize() > 5) {
     if(Driver::isWallChk(LEFT)) {
-	  Driver::stop();
+	  RoboCtl::stop();
       Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
 	}
   }
@@ -224,7 +224,7 @@ void RoboCtl::stepForth() {
     }
     if (RoboState::getMapSize() > 5) {
       if(Driver::isWallChk(LEFT)) {
-		Driver::stop();
+		RoboCtl::stop();
         Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
 	}
   }

@@ -23,6 +23,9 @@ void RoboState::setup(int m){
   index = x = y = -1; 
   firstSquare();
   facing = NORTH;
+  if (m == 5) {
+	entry = entry + 5;
+  }
 }
 
 RoboState::~RoboState(){}
