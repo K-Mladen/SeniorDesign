@@ -192,15 +192,21 @@ void RoboCtl::toggleMode() {
 void RoboCtl::turnRight() {
   Driver::turnRight();
   RoboState::turnRight();
-  if(Driver::isWallChk(LEFT))
-    Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
+  if (mode == SEARCH && RoboState::getMapSize() > 5) {
+    if(Driver::isWallChk(LEFT)) {
+      Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
+	}
+  }
 }
 
 void RoboCtl::turnLeft() {
   Driver::turnLeft();
   RoboState::turnLeft();
-  if(Driver::isWallChk(LEFT)) 
-    Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
+  if (mode == SEARCH && RoboState::getMapSize() > 5) {
+    if(Driver::isWallChk(LEFT)) {
+      Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
+	}
+  }
 }
 
 void RoboCtl::stepForth() {
@@ -214,9 +220,11 @@ void RoboCtl::stepForth() {
 	  RoboState::step();
 	  RoboState::turnBack();
     }
-    if(Driver::isWallChk(LEFT)){
-      Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
-    }
+    if (RoboState::getMapSize() > 5) {
+      if(Driver::isWallChk(LEFT)) {
+        Comms::snap(RoboCtl::getMapIndex(RoboState::getIndex()));
+	}
+  }
   } else if (mode == SOLVE) {
 	if (currentIndex != RoboState::getMapSize()) {
     stepCount++;
