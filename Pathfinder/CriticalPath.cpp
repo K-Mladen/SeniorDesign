@@ -27,7 +27,11 @@ void CrPath::setup(int m) {
   for (it = 0; it<MAXPATHSIZE;it++) {
     path[it] = 0; 
   }
-  push_back(m*m+1-m);
+  if (m == 5) {
+    push_back (26);
+  } else { 
+    push_back(m*m+1-m);
+  }
 }
 
 CrPath::~CrPath(){}
