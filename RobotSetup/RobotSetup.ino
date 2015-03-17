@@ -29,13 +29,14 @@ void setup(){
   pinMode(leftMotorPWM, OUTPUT);
   pinMode(LED_Done,OUTPUT);
   pinMode(CAMERA_PULSE,OUTPUT);
+  pinMode(CAMERA_RESPONSE,INPUT);
   pinMode(BUTTON,INPUT_PULLUP);
   pinMode(SIZE6, INPUT);
   pinMode(SIZE7, INPUT);
   
   if (digitalRead(SIZE6)) m = 6;
   if (digitalRead(SIZE7)) m = 7;
-  m = 7;
+
   Serial.print("Beginning calibration");
   RoboCtl torro(m);
   

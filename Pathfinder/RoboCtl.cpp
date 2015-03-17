@@ -234,8 +234,8 @@ void RoboCtl::stepForth() {
 
 
 void RoboCtl::aboutFace() { 
-  RoboCtl::turnLeft();
-  RoboCtl::turnLeft();
+  RoboCtl::turnRight();
+  RoboCtl::turnRight();
 }
 
 int RoboCtl::getNextFacing()

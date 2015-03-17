@@ -60,6 +60,7 @@
 #define LCD_D3 7
 
 #define CAMERA_PULSE 10
+#define CAMERA_RESPONSE 12
 
 #define RC_0 30
 #define RC_1 31
