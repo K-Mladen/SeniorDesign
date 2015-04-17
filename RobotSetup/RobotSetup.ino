@@ -13,7 +13,6 @@
 void setup(){
    
   Serial.begin(9600);
-  int m=5;
   
   pinMode(ftrigPin, OUTPUT);
   pinMode(fechoPin, INPUT);
@@ -28,19 +27,24 @@ void setup(){
   pinMode(leftMotorbrake, OUTPUT);
   pinMode(leftMotorPWM, OUTPUT);
   pinMode(LED_Done,OUTPUT);
+  pinMode(LED_Ready,OUTPUT);
   pinMode(CAMERA_PULSE,OUTPUT);
   pinMode(CAMERA_RESPONSE,INPUT);
   pinMode(BUTTON,INPUT_PULLUP);
-  pinMode(SIZE6, INPUT);
-  pinMode(SIZE7, INPUT);
+  pinMode(SIZE6, INPUT_PULLUP);
+  pinMode(SIZE7, INPUT_PULLUP);
   
-  if (digitalRead(SIZE6)) m = 6;
-  if (digitalRead(SIZE7)) m = 7;
+  digitalWrite(LED_Done,HIGH);
+  digitalWrite(LED_Ready,HIGH);
+  
+  int m=5;
+  if (!digitalRead(SIZE6)) m = 6;
+  if (!digitalRead(SIZE7)) m = 7;
 
   Serial.print("Beginning calibration");
   RoboCtl torro(m);
   
-  digitalWrite(LED_Done,HIGH);
+  digitalWrite(LED_Ready,LOW);
   
   //Serial.println(" - - Starting Course");
   while(torro.getMode() != DONE){
