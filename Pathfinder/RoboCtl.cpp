@@ -30,6 +30,8 @@ void RoboCtl::setup() {
   stepCount = 0;
   passedGo = 0;
   mode = READY;
+  digitalWrite(LED_Ready,LOW);
+  digitalWrite(LED_Done,HIGH);
 
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
@@ -50,7 +52,7 @@ int RoboCtl::nextAction() {
   //int r;
   LiquidCrystal::setCursor(0,0);
   switch(mode){
-	case READY:   LiquidCrystal::print("READY  "); break;
+	case READY:  LiquidCrystal::print("READY   "); break;
 	case SEARCH: LiquidCrystal::print("SEARCH  "); break;
 	case STOP:   LiquidCrystal::print("STOP    "); break;
 	case SOLVE:  LiquidCrystal::print("SOLVE   "); break;
@@ -102,10 +104,13 @@ int RoboCtl::nextAction() {
 	RoboCtl::stepForth();
 	
 	if (CrPath::getCompletionState() && mode == SEARCH) {
-	  digitalWrite(LED_Done,LOW);
-	  if (RoboState::getMapSize()==5) {
+    digitalWrite(LED_Ready,HIGH);
+	digitalWrite(LED_Done,LOW);
+	  if (RoboState::getMapSize()==5) { //change to always do return mode? verify with rules first
 		RoboState::reset();
 	    mode = STOP;
+		digitalWrite(LED_Ready,LOW);
+	    digitalWrite(LED_Done,HIGH);
 	  } else {
 		mode = RETURN;
 	  }
@@ -114,6 +119,8 @@ int RoboCtl::nextAction() {
 	if (mode == RETURN && CrPath::getNextStep(passedGo) == RoboState::getIndex()) {
 	  if(passedGo) {
 		mode = STOP;
+		digitalWrite(LED_Ready,LOW);
+	    digitalWrite(LED_Done,HIGH);
 	  } else {
 	    passedGo = 1;
 	  }
@@ -234,6 +241,8 @@ void RoboCtl::stepForth() {
 	Driver::goStraight();
 	} else {
 	  mode = DONE;
+	  digitalWrite(LED_Ready,HIGH); //HIGH = OFF, LOW = ON
+	  digitalWrite(LED_Done,LOW);
 	}
   }	else if (mode == RETURN) {
     if(Driver::isWallChk(LEFT)){
