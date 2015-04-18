@@ -45,7 +45,7 @@ void RoboCtl::setup() {
 	default:     LiquidCrystal::print("MODE ERR"); break;
   }
   //LiquidCrystal::print((mode==SEARCH)?"SEARCH  ":"DESTROY ");
-  Driver::goStraight();
+  //Driver::goStraight();
 }
 
 int RoboCtl::nextAction() {
@@ -105,12 +105,12 @@ int RoboCtl::nextAction() {
 	
 	if (CrPath::getCompletionState() && mode == SEARCH) {
 	  setLEDDone(ON);
-	  if (RoboState::getMapSize()==5) { //change to always do return mode? verify with rules first
-		RoboState::reset();
-	    mode = STOP;
-	  } else {
+	  // if (RoboState::getMapSize()==5) { //change to always do return mode? verify with rules first
+		// RoboState::reset();
+	    // mode = STOP;
+	  // } else {
 		mode = RETURN;
-	  }
+	  //}
 	}
 	
 	if (mode == RETURN && CrPath::getNextStep(passedGo) == RoboState::getIndex()) {
@@ -308,6 +308,11 @@ int RoboCtl::getMapIndex(int i) {
   //} else {
     //return -1;
   //}
+}
+
+void RoboCtl::stopButton() {
+	reset();
+	mode = SOLVE;
 }
 
 int RoboCtl::getMode() {
