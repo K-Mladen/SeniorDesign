@@ -59,6 +59,8 @@ class RoboCtl: private RoboState, public CrPath, private Driver, private Comms, 
     int NS;
     int EW;
 	int passedGo;
+	void setLEDReady(int val);
+    void setLEDDone(int val);
 };
 
 #endif ROBOCTL

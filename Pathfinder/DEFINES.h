@@ -5,6 +5,9 @@
 
 //Constants
 
+#define ON 1
+#define OFF 0
+
 //Chuck's Constants
 #define DATARATE 9600
 

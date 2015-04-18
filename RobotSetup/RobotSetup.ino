@@ -34,8 +34,7 @@ void setup(){
   pinMode(SIZE6, INPUT_PULLUP);
   pinMode(SIZE7, INPUT_PULLUP);
   
-  digitalWrite(LED_Done,HIGH);
-  digitalWrite(LED_Ready,HIGH);
+
   
   int m=5;
   if (!digitalRead(SIZE6)) m = 6;

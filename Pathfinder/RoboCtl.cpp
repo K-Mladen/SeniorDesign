@@ -30,8 +30,8 @@ void RoboCtl::setup() {
   stepCount = 0;
   passedGo = 0;
   mode = READY;
-  digitalWrite(LED_Ready,LOW);
-  digitalWrite(LED_Done,HIGH);
+  setLEDReady(OFF);
+  setLEDDone(OFF);
 
   LiquidCrystal::begin(LCD_COLS,LCD_ROWS);
   LiquidCrystal::setCursor(0,0);
@@ -104,13 +104,10 @@ int RoboCtl::nextAction() {
 	RoboCtl::stepForth();
 	
 	if (CrPath::getCompletionState() && mode == SEARCH) {
-    digitalWrite(LED_Ready,HIGH);
-	digitalWrite(LED_Done,LOW);
+	  setLEDDone(ON);
 	  if (RoboState::getMapSize()==5) { //change to always do return mode? verify with rules first
 		RoboState::reset();
 	    mode = STOP;
-		digitalWrite(LED_Ready,LOW);
-	    digitalWrite(LED_Done,HIGH);
 	  } else {
 		mode = RETURN;
 	  }
@@ -119,8 +116,6 @@ int RoboCtl::nextAction() {
 	if (mode == RETURN && CrPath::getNextStep(passedGo) == RoboState::getIndex()) {
 	  if(passedGo) {
 		mode = STOP;
-		digitalWrite(LED_Ready,LOW);
-	    digitalWrite(LED_Done,HIGH);
 	  } else {
 	    passedGo = 1;
 	  }
@@ -185,12 +180,15 @@ int RoboCtl::nextAction() {
 
 void RoboCtl::toggleMode() {
   if(!digitalRead(BUTTON)) {
+	  setLEDReady(OFF);
+	  setLEDDone(OFF);
 	  switch(mode) {
 	    case STOP: mode = SOLVE; break;
 		case READY: mode = SEARCH; break;
 		default: mode = ERROR;
 	  }
   } else {
+	  setLEDReady(ON);
 	  delay(50);
   }
 }
@@ -241,8 +239,8 @@ void RoboCtl::stepForth() {
 	Driver::goStraight();
 	} else {
 	  mode = DONE;
-	  digitalWrite(LED_Ready,HIGH); //HIGH = OFF, LOW = ON
-	  digitalWrite(LED_Done,LOW);
+	  //digitalWrite(LED_Ready,LOW); //HIGH = OFF, LOW = ON
+	  setLEDDone(ON);
 	}
   }	else if (mode == RETURN) {
     if(Driver::isWallChk(LEFT)){
@@ -297,7 +295,7 @@ int RoboCtl::getMapIndex(int i) {
   //implements a lookup-table based search to get map's index
   // 									from internal index
   const int index7x7[49] = {7,6,5,4,3,2,1,14,13,12,11,10,9,8,21,20,19,18,17,16,15,28,27,26,25,24,23,22,35,34,33,32,31,30,29,42,41,40,39,38,37,36,49,48,47,46,45,44,43};
-  const int index6x6[36] = {7,6,5,4,3,2,14,13,12,11,10,9,21,20,19,18,17,16,28,27,26,25,24,23,35,34,33,32,31,30,49,48,47,46,45,44}; //= //needs setup
+  const int index6x6[36] = {6,5,4,3,2,1,13,12,11,10,9,8,20,19,18,17,16,15,27,26,25,24,23,22,34,33,32,31,30,29,41,40,39,38,37,36,48}; //= //needs setup
   //const int index5x5[25]; //= //needs setup
   int mapSize = RoboState::getMapSize();
   
@@ -314,4 +312,12 @@ int RoboCtl::getMapIndex(int i) {
 
 int RoboCtl::getMode() {
   return mode;
+}
+
+void RoboCtl::setLEDReady(int val){
+	digitalWrite(LED_Ready,val);
+}
+
+void RoboCtl::setLEDDone(int val){
+	digitalWrite(LED_Done,!val);
 }
