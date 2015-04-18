@@ -22,13 +22,28 @@ void Driver::setup(){
     qtrrc.calibrate();   
     delay(20);
   }
+  lastVal = (sensorValuesCell[0] + sensorValuesCell[1]);
 }
 
 int Driver::isCenteredChk(){ 
   qtrrc1.read(sensorValuesCell);
+  for (it = 0;it <CH_COUNT;it++) {
+    changeInValues[CH_COUNT - it - 1] = changeInValues[CH_COUNT - it - 2];
+  }
+  changeInValues[0] = lastVal - (sensorValuesCell[0] + sensorValuesCell[1]);
+  lastVal = (sensorValuesCell[0] + sensorValuesCell[1]);
   if(sensorValuesCell[0] > 800 && sensorValuesCell[1] > 800)//if we are in the center of the cell, stop
   {
-    
+    if (changeInValues[0] > changeInValues[CH_COUNT]+1200) {
+		  digitalWrite(rightMotordir, HIGH);
+		  digitalWrite(rightMotorbrake, LOW);
+		  analogWrite(rightMotorPWM, rightMaxSpeed);
+		  digitalWrite(leftMotordir, HIGH);
+		  digitalWrite(leftMotorbrake, LOW);
+		  analogWrite(leftMotorPWM, leftMaxSpeed);
+		  delay(500); 
+		  return 0;
+	}
     //stop();
     
     return 1;
@@ -70,7 +85,7 @@ void Driver::turnRight(){
  digitalWrite(leftMotordir, HIGH);
  digitalWrite(leftMotorbrake, LOW);
  analogWrite(leftMotorPWM, leftMaxSpeed);
- delay(450);
+ delay(400);
 }
 
 void Driver::goStraight(){

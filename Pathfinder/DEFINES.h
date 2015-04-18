@@ -8,6 +8,8 @@
 #define ON 1
 #define OFF 0
 
+#define CH_COUNT 4
+
 //Chuck's Constants
 #define DATARATE 9600
 
