@@ -33,8 +33,7 @@ void setup(){
   pinMode(BUTTON,INPUT_PULLUP);
   pinMode(SIZE6, INPUT_PULLUP);
   pinMode(SIZE7, INPUT_PULLUP);
-  
-
+  pinMode(21,INPUT_PULLUP);
   
   int m=5;
   if (!digitalRead(SIZE6)) m = 6;
@@ -42,11 +41,10 @@ void setup(){
 
   Serial.print("Beginning calibration");
   RoboCtl torro(m);
-  
   digitalWrite(LED_Ready,LOW);
   
   //Serial.println(" - - Starting Course");
-  while(torro.getMode() != DONE){
+  while(torro.getMode() != DONE) {
 
     torro.nextAction();
 //    for(it = 0; it <50; it++){

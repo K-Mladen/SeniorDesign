@@ -28,7 +28,9 @@ void CrPath::setup(int m) {
     path[it] = 0; 
   }
   if (m == 5) {
-    push_back (26);
+    push_back(26);
+  } else if (m == 6) {
+	push_back(37);
   } else { 
     push_back(m*m+1-m);
   }

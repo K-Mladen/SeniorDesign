@@ -182,6 +182,8 @@ bool RoboState::facingAdj() {
 int RoboState::firstSquare() {
   if (n == 5) {
 	entry = 26;
+  } else if (n == 6) {
+	entry = 37;
   }
   x = calX(entry);
   y = calY(entry);

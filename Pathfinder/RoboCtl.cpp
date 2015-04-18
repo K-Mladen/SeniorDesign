@@ -67,6 +67,7 @@ int RoboCtl::nextAction() {
   if (mode == READY) {
 	  RoboCtl::toggleMode();
   } else if(mode == SEARCH || mode == RETURN) {
+	stopButton();
     if(!Driver::isWallChk(LEFT)) { 
 	  LiquidCrystal::setCursor(8,1);
       LiquidCrystal::print("    LEFT");
@@ -187,6 +188,7 @@ void RoboCtl::toggleMode() {
 		case READY: mode = SEARCH; break;
 		default: mode = ERROR;
 	  }
+	  RoboState::reset();
   } else {
 	  setLEDReady(ON);
 	  delay(50);
@@ -295,7 +297,7 @@ int RoboCtl::getMapIndex(int i) {
   //implements a lookup-table based search to get map's index
   // 									from internal index
   const int index7x7[49] = {7,6,5,4,3,2,1,14,13,12,11,10,9,8,21,20,19,18,17,16,15,28,27,26,25,24,23,22,35,34,33,32,31,30,29,42,41,40,39,38,37,36,49,48,47,46,45,44,43};
-  const int index6x6[36] = {6,5,4,3,2,1,13,12,11,10,9,8,20,19,18,17,16,15,27,26,25,24,23,22,34,33,32,31,30,29,41,40,39,38,37,36,48}; //= //needs setup
+  const int index6x6[37] = {6,5,4,3,2,1,13,12,11,10,9,8,20,19,18,17,16,15,27,26,25,24,23,22,34,33,32,31,30,29,41,40,39,38,37,36,48}; //= //needs setup
   //const int index5x5[25]; //= //needs setup
   int mapSize = RoboState::getMapSize();
   
@@ -311,8 +313,10 @@ int RoboCtl::getMapIndex(int i) {
 }
 
 void RoboCtl::stopButton() {
-	reset();
-	mode = SOLVE;
+	if(!digitalRead(21)) {
+	  RoboState::reset();
+	  mode = SOLVE;
+	}
 }
 
 int RoboCtl::getMode() {
