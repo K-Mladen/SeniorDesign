@@ -67,9 +67,8 @@ class Driver {
 	int rightMotorSpeed;
 	int leftMotorSpeed;
 	//int cellPosition;
-	int changeInValues [CH_COUNT];
-	int it;
-	int lastVal;
+	
+	
 	
 };
 
