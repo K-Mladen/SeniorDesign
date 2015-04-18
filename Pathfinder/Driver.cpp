@@ -56,30 +56,30 @@ int Driver::isWallChk(int side){
 void Driver::turnLeft(){
  digitalWrite(rightMotordir, HIGH);
  digitalWrite(rightMotorbrake, LOW);
- analogWrite(rightMotorPWM, 150);
+ analogWrite(rightMotorPWM, rightMaxSpeed);
  digitalWrite(leftMotordir, LOW);
  digitalWrite(leftMotorbrake, LOW);
- analogWrite(leftMotorPWM, 150);
- delay(850);
+ analogWrite(leftMotorPWM, leftMaxSpeed);
+ delay(450);
 }
 
 void Driver::turnRight(){
  digitalWrite(rightMotordir, LOW);
  digitalWrite(rightMotorbrake, LOW);
- analogWrite(rightMotorPWM, 150);
+ analogWrite(rightMotorPWM, rightMaxSpeed);
  digitalWrite(leftMotordir, HIGH);
  digitalWrite(leftMotorbrake, LOW);
- analogWrite(leftMotorPWM, 150);
- delay(850);
+ analogWrite(leftMotorPWM, leftMaxSpeed);
+ delay(450);
 }
 
 void Driver::goStraight(){
   digitalWrite(rightMotordir, HIGH);
   digitalWrite(rightMotorbrake, LOW);
-  analogWrite(rightMotorPWM, 150);
+  analogWrite(rightMotorPWM, rightMaxSpeed);
   digitalWrite(leftMotordir, HIGH);
   digitalWrite(leftMotorbrake, LOW);
-  analogWrite(leftMotorPWM, 150);
+  analogWrite(leftMotorPWM, leftMaxSpeed);
   delay(500); 
  
   while(!isCenteredChk()){ 

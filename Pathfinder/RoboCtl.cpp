@@ -190,6 +190,7 @@ void RoboCtl::toggleMode() {
 	  }
 	  RoboState::reset();
   } else {
+	  RoboCtl::stop();
 	  setLEDReady(ON);
 	  delay(50);
   }
