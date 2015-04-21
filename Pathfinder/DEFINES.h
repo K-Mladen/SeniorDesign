@@ -43,7 +43,7 @@
 #define MAXPATHSIZE 50
 #define DEFAULTMAPSIZE 5
 
-#define Kp .090 // experiment to determine this, 
+#define Kp .09 // experiment to determine this, 
 #define Kd 4 // experiment to determine this, slowly increase the speeds and adjust this value. (Note: Kp < Kd) 
 #define rightMaxSpeed 250 // max speed of the robot
 #define leftMaxSpeed 250 // max speed of the robot
@@ -53,7 +53,7 @@
 #define NUM_SENSORSCELL  2     // number of line sensors used
 #define TIMEOUT       2000  // waits for 2500 us for sensor outputs to go low
 
-
+#define CHKVAL 300
 
 #define LCD_RS 2
 #define LCD_EN 3

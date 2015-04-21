@@ -81,9 +81,19 @@ void Driver::goStraight(){
   digitalWrite(leftMotorbrake, LOW);
   analogWrite(leftMotorPWM, leftMaxSpeed);
   delay(500); 
- 
+  time = millis();
   while(!isCenteredChk()){ 
 	PID_Drive();
+	if (millis() > time + 2000) {
+		  digitalWrite(rightMotordir, HIGH);
+          digitalWrite(rightMotorbrake, LOW);
+          analogWrite(rightMotorPWM, rightMaxSpeed);
+          digitalWrite(leftMotordir, HIGH);
+          digitalWrite(leftMotorbrake, LOW);
+          analogWrite(leftMotorPWM, leftMaxSpeed);
+          delay(500);
+		  time = millis();
+	}
   }
 }
 

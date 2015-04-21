@@ -54,6 +54,7 @@ class Driver {
   void PID_Drive();
 
   
+  int time;
   
   //from josh
   long pingtime, pingdist;
